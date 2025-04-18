@@ -23,66 +23,28 @@ const Cart = () => {
   const { token,} = useContext(ShopContext);
   const navigate = useNavigate();
   
-  useEffect(() => {
-    if (products.length > 0) {
-      const tempData = [];
-      const validProductIds = products.map((p) => p._id);
-      let deletedFound = false;
-      let updatedCart = { ...cartItems };
+useEffect(() => {
+  const tempData = [];
+  for (const productId in cartItems) {
+    const product = products.find((p) => p._id === productId);
+    if (!product) continue;
 
-      for (const productId in cartItems) {
-        const product = products.find((p) => p._id === productId);
-
-        const hasQty = Object.values(cartItems[productId]).some(
-          (variant) => variant?.quantity > 0
-        );
-
-        if (!product && hasQty) {
-          deletedFound = true;
-          delete updatedCart[productId];
-          continue;
-        }
-
-        for (const variantKey in cartItems[productId]) {
-          if (cartItems[productId][variantKey]?.quantity > 0) {
-            // Extract size and color from variantKey (format: "size-color")
-            const variant = cartItems[productId][variantKey];
-            const [size, color] = variantKey.includes("-")
-              ? variantKey.split("-")
-              : [variantKey, product?.colors?.[0] || "#000000"];
-
-            tempData.push({
-              _id: productId,
-              size,
-              color,
-              quantity: variant.quantity,
-            });
-          }
-        }
+    for (const variantKey in cartItems[productId]) {
+      const variant = cartItems[productId][variantKey];
+      if (variant?.quantity > 0) {
+        tempData.push({
+          _id: productId,
+          size: variant.size,
+          color: variant.color,
+          quantity: variant.quantity,
+        });
       }
-
-      if (deletedFound && location.pathname === "/cart") {
-        setCartItems(updatedCart);
-
-        // Clear deleted cart items from backend
-        axios
-          .post(backendUrl + "/api/cart/clear-deleted", {
-            userId: localStorage.getItem("userId"),
-            updatedCart,
-          })
-          .catch((err) => console.log("Error clearing deleted cart:", err));
-
-        if (!hasShownDeletedToast.current) {
-          toast.error(
-            "Some items were removed from your cart as they're no longer available."
-          );
-          hasShownDeletedToast.current = true;
-        }
-      }
-
-      setCartData(tempData);
     }
-  }, [cartItems, products, setCartItems, location.pathname]);
+  }
+
+  setCartData(tempData);
+}, [cartItems, products]);
+
 
   const handleProceedToCheckout = () => {
     // Check if the user is logged in
