@@ -313,29 +313,43 @@ const ShopContextProvider = (props) => {
     fetchPlatformFee();
   }, [backendUrl]);
 
-  useEffect(() => {
-    if (products.length > 0 && Object.keys(cartItems).length > 0) {
-      let updatedCart = { ...cartItems };
-      let isCartModified = false;
+useEffect(() => {
+  if (products.length === 0 || Object.keys(cartItems).length === 0) return;
 
-      for (let productId in cartItems) {
-        const isProductValid = products.some(
-          (p) => String(p._id) === String(productId)
-        );
-        if (!isProductValid) {
-          delete updatedCart[productId];
-          isCartModified = true;
-        }
-      }
+  const updatedCart = { ...cartItems };
+  let deletedFound = false;
 
-      if (isCartModified) {
-        setCartItems(updatedCart);
-        toast.error(
-          "Some items were removed from your cart as they're no longer available."
-        );
-      }
+  for (const productId in cartItems) {
+    const product = products.find((p) => p._id === productId);
+    const hasQty = Object.values(cartItems[productId]).some(
+      (variant) => variant?.quantity > 0
+    );
+
+    if (!product && hasQty) {
+      deletedFound = true;
+      delete updatedCart[productId];
     }
-  }, [products, cartItems]);
+  }
+
+  if (deletedFound) {
+    setCartItems(updatedCart);
+
+    const userId = localStorage.getItem("userId");
+    if (userId) {
+      axios
+        .post(`${backendUrl}/api/cart/clear-deleted`, {
+          userId,
+          updatedCart,
+        })
+        .catch((err) => console.error("Cart cleanup failed:", err));
+    }
+
+    toast.error(
+      "Some items were removed from your cart as they're no longer available."
+    );
+  }
+}, [cartItems, products]);
+
 
   useEffect(() => {
     getProductsData();
