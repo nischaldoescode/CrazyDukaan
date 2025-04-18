@@ -1,0 +1,41 @@
+/* Base styles for the navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2vw;
+  }
+  
+  /* Styles for navigation links */
+  .nav-links {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  /* Hide the menu toggle button by default */
+  .menu-toggle {
+    display: none;
+  }
+  
+  /* Media query for screens between 620px and 950px */
+  @media (max-width: 950px) {
+    .nav-links {
+      display: none; /* Hide nav links */
+      flex-direction: column;
+      width: 100%;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: white;
+    }
+  
+    .nav-links.active {
+      display: flex; /* Show nav links when active */
+    }
+  
+    .menu-toggle {
+      display: block; /* Show menu toggle button */
+      cursor: pointer;
+    }
+  }
+  

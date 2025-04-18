@@ -1,0 +1,15 @@
+# Allow all bots to index the site
+User-agent: *
+Disallow: /admin/
+Disallow: /cart
+Disallow: /placeorder
+Disallow: /orders
+
+# Specific rules for Googlebot
+User-agent: Googlebot
+Disallow: /cart
+Disallow: /placeorder
+Disallow: /orders
+
+# Sitemap
+Sitemap: https://www.crazydukaan.store/sitemap.xml
