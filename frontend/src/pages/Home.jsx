@@ -29,6 +29,7 @@ const Home = () => {
         {/* Primary Meta Tags */}
         <title>Crazy Dukaan | Dukaan in Your hand</title>
         <meta name="title" content="Crazy Dukaan | Dukaan in Your hand" />
+        <meta name="google-site-verification" content="Ge6IsUiKWA-SWtWQqAiihdEp-oczhyGYhtwewuGIYX4" />
         <meta
           name="description"
           content="Crazy Dukaan assists you with brand-new fashion outfit trends by offering you items, peddling your style, or selling a will-o'-the-wisp, as seen on other popular media channels."
