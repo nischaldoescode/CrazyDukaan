@@ -266,7 +266,7 @@ const Login = () => {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Login - Crazy Dukaan | Best Outfit & Fashion Products</title>
-
+        <meta name="google-site-verification" content="Ge6IsUiKWA-SWtWQqAiihdEp-oczhyGYhtwewuGIYX4" />
         {/* Primary Meta Tags */}
         <meta
           name="description"
