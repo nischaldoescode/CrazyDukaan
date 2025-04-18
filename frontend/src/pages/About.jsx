@@ -108,7 +108,7 @@ const About = () => {
           <div className="text-center pt-12 pb-8">
             <Title text1={"ABOUT"} text2={"US"} />
             <p className="mt-4 text-gray-500 max-w-2xl mx-auto">
-              Discover the story behind Forever and what makes us different
+              Discover the story behind Crazy Dukaan and what makes us different
             </p>
           </div>
 
@@ -121,7 +121,7 @@ const About = () => {
             />
             <div className="flex flex-col justify-center gap-6 lg:w-1/2 text-gray-600">
               <p className="text-sm sm:text-base">
-                Forever was born out of a passion for innovation and a desire to
+                Crazy Dukaan was born out of a passion for innovation and a desire to
                 revolutionize the way people shop online. Our journey began with
                 a simple idea: to provide a platform where customers can easily
                 discover, explore, and purchase a wide range of products from
@@ -138,7 +138,7 @@ const About = () => {
                 Our Mission
               </b>
               <p className="text-sm sm:text-base">
-                Our mission at Forever is to empower customers with choice,
+                Our mission at Crazy Dukaan is to empower customers with choice,
                 convenience, and confidence. We're dedicated to providing a
                 seamless shopping experience that exceeds expectations, from
                 browsing and ordering to delivery and beyond.
