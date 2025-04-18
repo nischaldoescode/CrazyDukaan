@@ -30,6 +30,7 @@ const About = () => {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>About Us | Crazy Dukaan - Dukaan in Your Hand</title>
+        <meta name="google-site-verification" content="Ge6IsUiKWA-SWtWQqAiihdEp-oczhyGYhtwewuGIYX4" />
         <meta
           name="description"
           content="Learn more about Crazy Dukaan — your trusted and Favorite eCommerce platfroms for outfits, accessories, and fashion collections."
