@@ -152,7 +152,8 @@ const Login = () => {
         // } 
         if (email === "nischala389@gmail.com") {
           localStorage.setItem("token", response.data.token);
-          navigate("/"); // Skip OTP logic entirely
+          navigate("/collection"); // Skip OTP logic entirely
+          toast.success("No OTP needed, Test Account");
         } else if (response.data.success) {
           toast.success("OTP sent to email");
           setShowOtpInput(true);
