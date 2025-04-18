@@ -1,13 +1,12 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-const currentUrl = window.location.href;
 
 const WhatsAppButton = ({ productUrl }) => {
-  productUrl = currentUrl;
+  const currentUrl = window.location.href;
   const phoneNumber = "+918318042859"; // Example: Replace with your phone number
 
   // Define the custom message and include the product link
-  const message = `Hey, I am interested in buying this product. Here is the link: ${productUrl}`;
+  const message = `Hey, I am interested in buying this product. Here is the link: ${currentUrl}`;
 
   // URL encode the message
   const encodedMessage = encodeURIComponent(message);
