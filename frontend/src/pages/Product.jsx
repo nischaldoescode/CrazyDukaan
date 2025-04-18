@@ -81,7 +81,7 @@ const Product = () => {
                                     }
                                     w-[85px] h-[85px] sm:w-[105px] sm:h-[105px] lg:w-[125px] lg:h-[125px]
                                 `}
-                                onClick={() => setMainImage(item.url)}
+                                onClick={() => setMainImage(item)}
                             >
                                 <img
                                     src={item?.url}
