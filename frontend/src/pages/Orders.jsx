@@ -91,6 +91,7 @@ const Orders = () => {
   if (!token) {
     <Helmet>
     <title>Your Orders | Crazy Dukaan</title>
+    <meta name="google-site-verification" content="Ge6IsUiKWA-SWtWQqAiihdEp-oczhyGYhtwewuGIYX4" />
     <meta name="description" content="View your order history and track recent purchases from Crazy Dukaan. Reliable fashion shopping with quick delivery and detailed tracking." />
     <meta name="keywords" content="Crazy Dukaan orders, order history, fashion delivery, online purchases, track orders, Crazy Dukaan tracking, view my orders" />
     <meta name="author" content="Crazy Dukaan" />
