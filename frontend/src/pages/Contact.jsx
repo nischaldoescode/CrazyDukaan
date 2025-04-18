@@ -23,7 +23,7 @@ const Contact = () => {
     <>
       <Helmet>
         <title>Contact Us | Crazy Dukaan - Dukaan in Your Hand</title>
-
+        <meta name="google-site-verification" content="Ge6IsUiKWA-SWtWQqAiihdEp-oczhyGYhtwewuGIYX4" />
         {/* Primary Meta Tags */}
         <meta
           name="description"
