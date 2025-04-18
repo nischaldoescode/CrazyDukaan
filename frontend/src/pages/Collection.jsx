@@ -92,6 +92,7 @@ const Collection = () => {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Crazy Dukaan | Dukaan in your hand</title>
+    <meta name="google-site-verification" content="Ge6IsUiKWA-SWtWQqAiihdEp-oczhyGYhtwewuGIYX4" />
 
     {/* Primary Meta Tags */}
     <meta
