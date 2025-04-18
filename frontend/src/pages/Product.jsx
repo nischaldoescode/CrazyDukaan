@@ -239,14 +239,6 @@ const Product = () => {
 
             {/* Description & Review Section */}
             <div className="mt-20 mb-16">
-                <div className="flex border-b">
-                    <button className="border-b-2 border-orange-500 px-6 py-3 text-sm font-medium text-orange-600">
-                        Description
-                    </button>
-                    <button className="px-6 py-3 text-sm text-gray-500 hover:text-gray-700">
-                        Reviews (122)
-                    </button>
-                </div>
                 <div className="border px-6 py-8 text-gray-600">
                     <p className="mb-4">
                         {productData.description}
