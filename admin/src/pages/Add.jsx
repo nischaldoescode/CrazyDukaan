@@ -36,8 +36,8 @@ const Add = ({ token }) => {
     const isWatch = subCategory === "Handwear";
     const isShoes = subCategory === "Shoewear";
     const isTopwear = subCategory === "Winterwear";
-    
-    if (isWatch) {
+    const isEyewear = subCategory === "Eyewear";
+    if (isWatch || isEyewear) {
       setAvailableSizes(["one-size"]);
       setSelectedSizes(["one-size"]);
     } else if (isShoes) {
@@ -58,7 +58,7 @@ const Add = ({ token }) => {
       setAvailableSizes([]);
     }
     
-    if (!isWatch) {
+    if (!(isWatch || isEyewear)) {
       setSelectedSizes([]);
     }
   }, [category, subCategory]);
@@ -66,7 +66,7 @@ const Add = ({ token }) => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    if (subCategory !== "Handwear" && selectedSizes.length === 0) {
+    if (subCategory !== "Handwear" && subCategory !== "Eyewear" && selectedSizes.length === 0) {
       toast.error("Please select at least one size");
       return;
     }
@@ -280,6 +280,7 @@ const Add = ({ token }) => {
             <option value="Shoewear">Shoes</option>
             <option value="Handwear">Watches</option>
             <option value="Winterwear">T-shirts</option>
+            <option value="Eyewear">Sunglasses</option>
           </select>
         </div>
 
@@ -368,8 +369,10 @@ const Add = ({ token }) => {
 
       {/* Size Selection - Full width */}
       <div className="mb-6 pb-4 border-b border-gray-200">
-        <h3 className="text-lg md:text-xl font-semibold mb-3 text-gray-800">Available Sizes</h3>
-        {subCategory !== "Handwear" ? (
+        <h3 className="text-lg md:text-xl font-semibold mb-3 text-gray-800">
+          Available Sizes
+        </h3>
+        {subCategory !== "Handwear" && subCategory !== "Eyewear" ? (
           <>
             <div className="flex flex-wrap gap-2 mb-3">
               {availableSizes.map((size) => (
@@ -379,8 +382,8 @@ const Add = ({ token }) => {
                   onClick={() => toggleSize(size)}
                   className={`px-3 py-1 text-sm rounded transition-colors ${
                     selectedSizes.includes(size)
-                      ? 'bg-gray-800 text-white'
-                      : 'bg-gray-200 hover:bg-gray-300'
+                      ? "bg-gray-800 text-white"
+                      : "bg-gray-200 hover:bg-gray-300"
                   }`}
                 >
                   {size}
@@ -389,13 +392,13 @@ const Add = ({ token }) => {
             </div>
             <div className="flex flex-wrap gap-2">
               {selectedSizes.map((size) => (
-                <div 
-                  key={size} 
+                <div
+                  key={size}
                   className="flex items-center px-3 py-1 text-sm bg-gray-800 text-white rounded"
                 >
                   <span>{size}</span>
-                  <button 
-                    type="button" 
+                  <button
+                    type="button"
                     onClick={() => removeSize(size)}
                     className="ml-2 text-white hover:text-gray-300"
                   >
@@ -411,7 +414,9 @@ const Add = ({ token }) => {
               <span>one-size</span>
             </div>
             <p className="text-gray-500 italic text-sm">
-              (Default for watches)
+              {subCategory === "Handwear"
+                ? "(Default for watches)"
+                : "(Default for sunglasses)"}
             </p>
           </div>
         )}
