@@ -162,7 +162,7 @@ const Collection = () => {
         />
         <link rel="manifest" href="/site.webmanifest" />
   </Helmet>
-    <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t'>
+    <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t mb-4'>
       {/* Filter Options */}
       <div className='min-w-60'>
         <p onClick={() => setShowFilter(!showFilter)} className='my-2 text-xl flex items-center cursor-pointer gap-2'>
@@ -221,7 +221,7 @@ const Collection = () => {
         {filterProducts.length > 0 ? (
           <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6'>
             {filterProducts.map((item, index) => (
-              <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} originalPrice={item.originalPrice} />
+              <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} originalPrice={item.originalPrice} className='mb-28'/>
             ))}
           </div>
         ) : (
