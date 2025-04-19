@@ -57,7 +57,7 @@ const Collection = () => {
     // Only validate after products are loaded
     if (filterProducts.length > 0 || initialized) {
       const totalPages = Math.ceil(filterProducts.length / productsPerPage);
-      
+
       if (currentPage < 1 || (totalPages > 0 && currentPage > totalPages)) {
         setInvalidPage(true);
       } else {
@@ -71,7 +71,7 @@ const Collection = () => {
     navigate(`/collection?page=${page}`);
     setCurrentPage(page);
   };
-  
+
   const toggleCategory = (e) => {
     if (category.includes(e.target.value)) {
       setCategory((prev) => prev.filter((item) => item !== e.target.value));
@@ -94,7 +94,7 @@ const Collection = () => {
   useEffect(() => {
     // Skip this effect until initial products are loaded
     if (!initialized) return;
-    
+
     setIsLoading(true);
     let productsCopy = [...products];
 
@@ -134,23 +134,31 @@ const Collection = () => {
 
     setTimeout(() => {
       setFilterProducts(productsCopy);
-      
+
       // Check if current page is still valid after filtering
       const totalPages = Math.ceil(productsCopy.length / productsPerPage);
       if (currentPage > totalPages && totalPages > 0) {
         updateURL(totalPages); // If current page is now invalid, go to last page
       }
-      
+
       setIsLoading(false);
     }, 300);
-  }, [products, category, subCategory, search, showSearch, sortType, initialized]);
+  }, [
+    products,
+    category,
+    subCategory,
+    search,
+    showSearch,
+    sortType,
+    initialized,
+  ]);
 
   // Update displayed products based on pagination
   useEffect(() => {
     if (filterProducts.length > 0) {
       const indexOfLastProduct = currentPage * productsPerPage;
       const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-      
+
       setDisplayProducts(
         filterProducts.slice(indexOfFirstProduct, indexOfLastProduct)
       );
@@ -167,10 +175,10 @@ const Collection = () => {
   const changePage = (pageNumber) => {
     setIsLoading(true);
     updateURL(pageNumber);
-    
+
     window.scrollTo({
       top: 0,
-      behavior: "smooth"
+      behavior: "smooth",
     });
 
     setTimeout(() => {
@@ -221,9 +229,9 @@ const Collection = () => {
       opacity: 1,
       transition: {
         staggerChildren: 0.05,
-        when: "beforeChildren"
-      }
-    }
+        when: "beforeChildren",
+      },
+    },
   };
 
   const itemVariants = {
@@ -232,9 +240,9 @@ const Collection = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.3
-      }
-    }
+        duration: 0.3,
+      },
+    },
   };
 
   // Redirect to NotFound if page is invalid - AFTER all hooks
@@ -244,62 +252,77 @@ const Collection = () => {
 
   return (
     <>
-    <Helmet>
-    {/* Basic Meta */}
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crazy Dukaan | Dukaan in your hand</title>
-    <meta name="google-site-verification" content="Ge6IsUiKWA-SWtWQqAiihdEp-oczhyGYhtwewuGIYX4" />
+      <Helmet>
+        {/* Basic Meta */}
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Crazy Dukaan | Dukaan in your hand</title>
+        <meta
+          name="google-site-verification"
+          content="Ge6IsUiKWA-SWtWQqAiihdEp-oczhyGYhtwewuGIYX4"
+        />
 
-    {/* Primary Meta Tags */}
-    <meta
-      name="description"
-      content="Crazy Dukaan is your go-to eCommerce platform for the latest outfits, fashion products, and accessories. Find the best fashion deals online. Explore now."
-    />
-    <meta
-      name="keywords"
-      content="Crazy Dukaan, fashion collections, latest outfits, trendy wear, online shopping, eCommerce, streetwear, accessories, fashion store, Crazy Dukaan store, best deals, fashion retailer, online shopping, trendy outfits, fashion essentials, Crazy Dukaan collections,"
-    />
-    <meta name="author" content="Crazy Dukaan" />
-    <meta name="robots" content="index, follow" />
-    <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+        {/* Primary Meta Tags */}
+        <meta
+          name="description"
+          content="Crazy Dukaan is your go-to eCommerce platform for the latest outfits, fashion products, and accessories. Find the best fashion deals online. Explore now."
+        />
+        <meta
+          name="keywords"
+          content="Crazy Dukaan, fashion collections, latest outfits, trendy wear, online shopping, eCommerce, streetwear, accessories, fashion store, Crazy Dukaan store, best deals, fashion retailer, online shopping, trendy outfits, fashion essentials, Crazy Dukaan collections,"
+        />
+        <meta name="author" content="Crazy Dukaan" />
+        <meta name="robots" content="index, follow" />
+        <meta
+          name="robots"
+          content="max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        />
 
-    {/* Open Graph (OG) Meta Tags */}
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.crazydukaan.store/collection" />
-    <meta property="og:site_name" content="Crazy Dukaan" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:title" content="Collection - Crazy Dukaan | Dukaan in your hand" />
-    <meta
-      property="og:description"
-      content="Crazy Dukaan is your go-to eCommerce platform for the latest outfits, fashion products, and accessories. Find the best fashion deals online. Explore now."
-    />
-    <meta
-      property="og:image"
-      content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1744911085/zipkainysdn8qhlp0dix.png"
-    />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:type" content="image/png" />
+        {/* Open Graph (OG) Meta Tags */}
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content="https://www.crazydukaan.store/collection"
+        />
+        <meta property="og:site_name" content="Crazy Dukaan" />
+        <meta property="og:locale" content="en_US" />
+        <meta
+          property="og:title"
+          content="Collection - Crazy Dukaan | Dukaan in your hand"
+        />
+        <meta
+          property="og:description"
+          content="Crazy Dukaan is your go-to eCommerce platform for the latest outfits, fashion products, and accessories. Find the best fashion deals online. Explore now."
+        />
+        <meta
+          property="og:image"
+          content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1744911085/zipkainysdn8qhlp0dix.png"
+        />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:type" content="image/png" />
 
-    {/* Instagram (only) */}
-    <meta name="instagram:site" content="@crazydukaan.store" />
+        {/* Instagram (only) */}
+        <meta name="instagram:site" content="@crazydukaan.store" />
 
-    {/* Twitter Meta (optional fallback) */}
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Crazy Dukaan | Dukaan in your hand" />
-    <meta
-      name="twitter:description"
-      content="Discover exclusive collections at Crazy Dukaan – your go-to fashion hub. Shop trendy outfits, accessories, and fashion essentials delivered to your door."
-    />
-    <meta
-      name="twitter:image"
-      content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1744911085/zipkainysdn8qhlp0dix.png"
-    />
+        {/* Twitter Meta (optional fallback) */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Crazy Dukaan | Dukaan in your hand"
+        />
+        <meta
+          name="twitter:description"
+          content="Discover exclusive collections at Crazy Dukaan – your go-to fashion hub. Shop trendy outfits, accessories, and fashion essentials delivered to your door."
+        />
+        <meta
+          name="twitter:image"
+          content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1744911085/zipkainysdn8qhlp0dix.png"
+        />
 
-    {/* Theme & Appearance */}
-    <meta name="theme-color" content="#ffffff" />
-    <link
+        {/* Theme & Appearance */}
+        <meta name="theme-color" content="#ffffff" />
+        <link
           rel="apple-touch-icon"
           sizes="180x180"
           href="/apple-touch-icon.png"
@@ -318,8 +341,8 @@ const Collection = () => {
         />
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="canonical" href="https://www.crazydukaan.store/collection" />
-  </Helmet>
-<div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t mb-28">
+      </Helmet>
+      <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t mb-28">
         {/* Filter Options */}
         <div className="min-w-60">
           <p
@@ -366,11 +389,11 @@ const Collection = () => {
                 <input
                   className="w-3"
                   type="checkbox"
-                  value={"Kids"}
+                  value={"Unisex"}
                   onChange={toggleCategory}
-                  checked={category.includes("Kids")}
+                  checked={category.includes("Unisex")}
                 />{" "}
-                Kids
+                Unisex
               </p>
             </div>
           </div>
@@ -421,6 +444,16 @@ const Collection = () => {
                   checked={subCategory.includes("Eyewear")}
                 />{" "}
                 SunGlasses
+              </p>
+              <p className="flex gap-2">
+                <input
+                  className="w-3"
+                  type="checkbox"
+                  value="WMLadiesBag"
+                  onChange={toggleSubCategory}
+                  checked={subCategory.includes("WMLadiesBag")}
+                />{" "}
+                Women Hand Bag
               </p>
             </div>
           </div>
@@ -480,7 +513,8 @@ const Collection = () => {
                             id={item._id}
                             price={item.price}
                             image={item.image}
-                            originalPrice={item.originalPrice} className='mb-28'
+                            originalPrice={item.originalPrice}
+                            className="mb-28"
                           />
                         </motion.div>
                       ))}
@@ -488,7 +522,7 @@ const Collection = () => {
 
                     {/* Pagination */}
                     {totalPages > 1 && (
-                      <motion.div 
+                      <motion.div
                         className="flex justify-center mt-8"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -496,7 +530,9 @@ const Collection = () => {
                       >
                         <nav className="flex items-center gap-1">
                           <button
-                            onClick={() => changePage(Math.max(1, currentPage - 1))}
+                            onClick={() =>
+                              changePage(Math.max(1, currentPage - 1))
+                            }
                             disabled={currentPage === 1}
                             className="px-3 py-1 border rounded hover:bg-gray-100 disabled:opacity-50"
                           >
