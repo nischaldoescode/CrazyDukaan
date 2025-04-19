@@ -4,12 +4,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet";
+
 // Components
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SearchBar from "./components/SearchBar";
 import TermsCondition from "./components/TermsConditions";
 import FrequentyAskedQuestions from "./components/FrequentlyQuestions";
+
 // Pages
 import Home from "./pages/Home";
 import Collection from "./pages/Collection";
@@ -21,7 +23,6 @@ import Login from "./pages/Login";
 import PlaceOrder from "./pages/PlaceOrder";
 import Orders from "./pages/Orders";
 import Loader from "./pages/Loader";
-
 // import Verify from './pages/Verify';
 import NotFoundPage from "./pages/404";
 
@@ -61,242 +62,248 @@ const App = () => {
   };
 
   return (
-    <Helmet>
-  <script type="application/ld+json">
-    {JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      name: "Crazy Dukaan",
-      url: "https://crazydukaan.store",
-      logo: "https://res.cloudinary.com/dgia0ww1z/image/upload/v1744657344/pc6yvs6rzxgjc6dqnglg.png",
-      sameAs: [
-        "https://www.instagram.com/crazydukaan.store"
-      ]
-    })}
-  </script>
-</Helmet>
+    <>
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "Crazy Dukaan",
+            url: "https://crazydukaan.store",
+            logo:
+              "https://res.cloudinary.com/dgia0ww1z/image/upload/v1744657344/pc6yvs6rzxgjc6dqnglg.png",
+            sameAs: ["https://www.instagram.com/crazydukaan.store"],
+          })}
+        </script>
+      </Helmet>
 
-    <div className="flex flex-col min-h-screen bg-orange-100">
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-<Loader />
-      <main className="flex-grow px-2 sm:px-[2vw] md:px-[3vw] lg:px-[5vw]">
-        <SearchBar />
-        <Navbar />
+      <div className="flex flex-col min-h-screen bg-orange-100">
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
 
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route
-              path="/"
-              element={
-                <motion.div
-                  custom={direction}
-                  variants={pageVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  <Home />
-                </motion.div>
-              }
-            />
+        <Loader />
 
-            <Route
-              path="/collection"
-              element={
-                <motion.div
-                  custom={direction}
-                  variants={pageVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  <Collection />
-                </motion.div>
-              }
-            />
+        <main className="flex-grow px-2 sm:px-[2vw] md:px-[3vw] lg:px-[5vw]">
+          <SearchBar />
+          <Navbar />
 
-            <Route
-              path="/about"
-              element={
-                <motion.div
-                  custom={direction}
-                  variants={pageVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  <About />
-                </motion.div>
-              }
-            />
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              <Route
+                path="/"
+                element={
+                  <motion.div
+                    custom={direction}
+                    variants={pageVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                  >
+                    <Home />
+                  </motion.div>
+                }
+              />
 
-            <Route
-              path="/contact"
-              element={
-                <motion.div
-                  custom={direction}
-                  variants={pageVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  <Contact />
-                </motion.div>
-              }
-            />
+              <Route
+                path="/collection"
+                element={
+                  <motion.div
+                    custom={direction}
+                    variants={pageVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                  >
+                    <Collection />
+                  </motion.div>
+                }
+              />
 
-            <Route
-              path="/product/:productId"
-              element={
-                <motion.div
-                  custom={direction}
-                  variants={pageVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  <Product />
-                </motion.div>
-              }
-            />
+              <Route
+                path="/about"
+                element={
+                  <motion.div
+                    custom={direction}
+                    variants={pageVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                  >
+                    <About />
+                  </motion.div>
+                }
+              />
 
-            <Route
-              path="/cart"
-              element={
-                <motion.div
-                  custom={direction}
-                  variants={pageVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  <Cart />
-                </motion.div>
-              }
-            />
+              <Route
+                path="/contact"
+                element={
+                  <motion.div
+                    custom={direction}
+                    variants={pageVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                  >
+                    <Contact />
+                  </motion.div>
+                }
+              />
 
-            <Route
-              path="/login"
-              element={
-                <motion.div
-                  custom={direction}
-                  variants={pageVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  <Login />
-                </motion.div>
-              }
-            />
+              <Route
+                path="/product/:productId"
+                element={
+                  <motion.div
+                    custom={direction}
+                    variants={pageVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                  >
+                    <Product />
+                  </motion.div>
+                }
+              />
 
-            <Route
-              path="/place-order"
-              element={
-                <motion.div
-                  custom={direction}
-                  variants={pageVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  <PlaceOrder />
-                </motion.div>
-              }
-            />
+              <Route
+                path="/cart"
+                element={
+                  <motion.div
+                    custom={direction}
+                    variants={pageVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                  >
+                    <Cart />
+                  </motion.div>
+                }
+              />
 
-            <Route
-              path="/orders"
-              element={
-                <motion.div
-                  custom={direction}
-                  variants={pageVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  <Orders />
-                </motion.div>
-              }
-            />
+              <Route
+                path="/login"
+                element={
+                  <motion.div
+                    custom={direction}
+                    variants={pageVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                  >
+                    <Login />
+                  </motion.div>
+                }
+              />
 
-            {/* <Route
-              path="/verify"
-              element={
-                <motion.div
-                  custom={direction}
-                  variants={pageVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  <Verify />
-                </motion.div>
-              }
-            /> */}
-            <Route
-              path="/termsconditions"
-              element={
-                <motion.div
-                  custom={direction}
-                  variants={pageVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  <TermsCondition />
-                </motion.div>
-              }
-            />
+              <Route
+                path="/place-order"
+                element={
+                  <motion.div
+                    custom={direction}
+                    variants={pageVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                  >
+                    <PlaceOrder />
+                  </motion.div>
+                }
+              />
 
-            <Route
-              path="/frequentlyaskedquestions"
-              element={
-                <motion.div
-                  custom={direction}
-                  variants={pageVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  <FrequentyAskedQuestions />
-                </motion.div>
-              }
-            />
-            <Route
-              path="*"
-              element={
-                <motion.div
-                  custom={direction}
-                  variants={pageVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  <NotFoundPage />
-                </motion.div>
-              }
-            />
-          </Routes>
-        </AnimatePresence>
+              <Route
+                path="/orders"
+                element={
+                  <motion.div
+                    custom={direction}
+                    variants={pageVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                  >
+                    <Orders />
+                  </motion.div>
+                }
+              />
 
-        <Footer />
-      </main>
-    </div>
+              {/* <Route
+                path="/verify"
+                element={
+                  <motion.div
+                    custom={direction}
+                    variants={pageVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                  >
+                    <Verify />
+                  </motion.div>
+                }
+              /> */}
+
+              <Route
+                path="/termsconditions"
+                element={
+                  <motion.div
+                    custom={direction}
+                    variants={pageVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                  >
+                    <TermsCondition />
+                  </motion.div>
+                }
+              />
+
+              <Route
+                path="/frequentlyaskedquestions"
+                element={
+                  <motion.div
+                    custom={direction}
+                    variants={pageVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                  >
+                    <FrequentyAskedQuestions />
+                  </motion.div>
+                }
+              />
+
+              <Route
+                path="*"
+                element={
+                  <motion.div
+                    custom={direction}
+                    variants={pageVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                  >
+                    <NotFoundPage />
+                  </motion.div>
+                }
+              />
+            </Routes>
+          </AnimatePresence>
+
+          <Footer />
+        </main>
+      </div>
+    </>
   );
 };
 
 export default App;
+
 
 // useEffect(() => {
 //   const disableRightClick = (e) => e.preventDefault();
