@@ -3,11 +3,11 @@ import { ShopContext } from '../context/ShopContext'
 import { motion } from 'framer-motion'
 import Title from './Title'
 import ProductItem from './ProductItem'
-
+import { Routes, Route, useNavigate } from 'react-router-dom'
 const LatestCollection = () => {
     const { products } = useContext(ShopContext)
     const [latestProducts, setLatestProducts] = useState([])
-
+    const navigate = useNavigate()
     useEffect(() => {
         setLatestProducts(products.slice(0, 10))
     }, [products])
@@ -88,7 +88,7 @@ const LatestCollection = () => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.8 }}
                 >
-                    <button className="px-6 py-2 bg-black text-white text-sm sm:text-base rounded-full hover:bg-opacity-90 transition-all duration-300 shadow-md hover:shadow-lg">
+                    <button className="px-6 py-2 bg-black text-white text-sm sm:text-base rounded-full hover:bg-opacity-90 transition-all duration-300 shadow-md hover:shadow-lg" onClick={() => navigate('/Collection')}>
                         View All Collections
                     </button>
                 </motion.div>
