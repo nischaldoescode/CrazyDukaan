@@ -63,6 +63,26 @@ const Orders = ({ token }) => {
     </div>
   );
 
+  // Helper function to display category badges
+  const CategoryBadge = ({ category, subCategory }) => {
+    if (!category && !subCategory) return null;
+    
+    return (
+      <div className="flex flex-wrap gap-1 mt-1">
+        {category && (
+          <span className="text-xs px-2 py-0.5 bg-indigo-100 text-indigo-800 rounded-full">
+            {category}
+          </span>
+        )}
+        {subCategory && (
+          <span className="text-xs px-2 py-0.5 bg-purple-100 text-purple-800 rounded-full">
+            {subCategory}
+          </span>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="px-4 py-6 sm:px-6 lg:px-8">
       <h3 className="text-2xl font-bold text-gray-800 mb-6">
@@ -128,6 +148,11 @@ const Orders = ({ token }) => {
                               </span>
                             )}
                           </div>
+                          {/* Add Category and Subcategory */}
+                          <CategoryBadge 
+                            category={item.category} 
+                            subCategory={item.subCategory} 
+                          />
                         </div>
                       </div>
                       <span className="whitespace-nowrap font-medium">
@@ -288,6 +313,11 @@ const Orders = ({ token }) => {
                               </span>
                             )}
                           </div>
+                          {/* Add Category and Subcategory for mobile */}
+                          <CategoryBadge 
+                            category={item.category} 
+                            subCategory={item.subCategory} 
+                          />
                         </div>
                       </div>
                       <div className="text-right">
