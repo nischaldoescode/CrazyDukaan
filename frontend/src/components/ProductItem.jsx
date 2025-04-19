@@ -62,14 +62,20 @@ const ProductItem = ({ id, image, name, price, className }) => {
             </motion.h3>
 
             <div className="flex justify-between items-center mt-1">
-              <motion.p
-                className="text-lg sm:text-xl font-semibold text-gray-900"
-                whileHover={{ color: "#f97316" }}
-                transition={{ duration: 0.2 }}
-              >
-                {currency}
-                {price}
-              </motion.p>
+              <div className="flex flex-col">
+                <motion.p
+                  className="text-lg sm:text-xl font-semibold text-gray-900"
+                  whileHover={{ color: "#f97316" }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {currency}
+                  {price}
+                </motion.p>
+                <p className="text-sm text-gray-400 line-through decoration-black">
+                  {currency}
+                  {originalPrice}
+                </p>
+              </div>
 
               {productColors.length > 0 && (
                 <motion.div
