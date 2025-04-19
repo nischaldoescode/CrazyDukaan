@@ -68,7 +68,7 @@ const App = () => {
       "@type": "Organization",
       name: "Crazy Dukaan",
       url: "https://crazydukaan.store",
-      logo: "https://crazydukaan.store/logo.png",
+      logo: "https://res.cloudinary.com/dgia0ww1z/image/upload/v1744657344/pc6yvs6rzxgjc6dqnglg.png",
       sameAs: [
         "https://www.instagram.com/crazydukaan.store"
       ]
