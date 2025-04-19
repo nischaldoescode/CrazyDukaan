@@ -285,6 +285,8 @@ const PlaceOrder = () => {
                 price: item.price,
                 name: item.name,
                 image: item.image,
+                category: item.category,
+                subCategory: item.subCategory
               });
             }
           }
