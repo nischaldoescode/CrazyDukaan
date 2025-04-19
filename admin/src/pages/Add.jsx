@@ -75,7 +75,15 @@ const Add = ({ token }) => {
       toast.error("Please select at least one color");
       return;
     }
-
+    if (discountOption > 0 && couponCode.trim() === "") {
+      toast.error("Please enter a coupon code for the selected discount.");
+      return;
+    }
+    
+    if (couponCode.trim() !== "" && discountOption === 0) {
+      toast.error("Please select a discount option along with the coupon code.");
+      return;
+    }  
     try {
       const formData = new FormData();
       formData.append("name", name);
