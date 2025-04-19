@@ -92,13 +92,16 @@ const List = ({ token }) => {
     }
   };
 
-  const validatePrices = () => {
-    if (editForm.originalPrice && parseFloat(editForm.originalPrice) <= parseFloat(editForm.price)) {
-      setPriceError("Original price must be higher than current price");
-      return false;
-    }
-    return true;
-  };
+const validatePrices = () => {
+  if (
+    editForm.originalPrice &&
+    parseFloat(editForm.originalPrice) <= parseFloat(editForm.price)
+  ) {
+    setPriceError("Original price must be higher than discounted price");
+    return false;
+  }
+  return true;
+};
 
   const handleEditSubmit = async (id) => {
     if (!validatePrices()) return;
