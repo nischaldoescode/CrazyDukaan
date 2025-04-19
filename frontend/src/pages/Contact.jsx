@@ -39,7 +39,6 @@ const Contact = () => {
           name="robots"
           content="max-snippet:-1, max-image-preview:large, max-video-preview:-1"
         />
-        <link rel="canonical" href="https://www.crazydukaan.store/contact" />
 
         {/* Open Graph Meta Tags */}
         <meta property="og:type" content="website" />
