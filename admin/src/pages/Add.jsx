@@ -13,6 +13,7 @@ const Add = ({ token }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+  const [originalPrice, setOriginalPrice] = useState("");
   const [category, setCategory] = useState("Men");
   const [subCategory, setSubCategory] = useState("Shoewear");
   const [bestseller, setBestseller] = useState(false);
@@ -80,6 +81,7 @@ const Add = ({ token }) => {
       formData.append("name", name);
       formData.append("description", description);
       formData.append("price", price);
+      formData.append("originalPrice", originalPrice);
       formData.append("category", category);
       formData.append("subCategory", subCategory);
       formData.append("bestseller", bestseller);
@@ -125,6 +127,7 @@ const Add = ({ token }) => {
     setName("");
     setDescription("");
     setPrice("");
+    setOriginalPrice("")
     setImage1(false);
     setImage2(false);
     setImage3(false);
@@ -288,6 +291,27 @@ const Add = ({ token }) => {
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
             type="Number"
             placeholder="Enter price"
+            min="0"
+            required
+          />
+        </div>
+          <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Product Original Price (₹)
+          </label>
+          <input
+            onChange={(e) => {
+              const value = parseFloat(e.target.value);
+              if (value <= price) {
+                setOriginalPrice(value);
+              } else {
+                toast.error("Original Price must be less than Price")
+              }
+            }}
+            value={originalPrice}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+            type="number"
+            placeholder="Strike Through Price"
             min="0"
             required
           />
