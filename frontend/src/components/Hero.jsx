@@ -96,7 +96,7 @@ const Hero = () => {
 
   return (
     <div 
-      className="relative w-full h-screen max-h-[100vh] overflow-hidden bg-[#f8f8f8] rounded-lg"
+      className="relative w-full h-screen max-h-[100vh] overflow-hidden bg-[#f8f8f8] rounded-xl"
       onMouseEnter={() => setIsHovered(true)} 
       onMouseLeave={() => setIsHovered(false)}
     >
