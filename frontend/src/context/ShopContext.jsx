@@ -72,6 +72,8 @@ const ShopContextProvider = (props) => {
                     image: cartData[itemId][variantKey].image || "",
                     name: cartData[itemId][variantKey].name || "",
                     price: parseFloat(cartData[itemId][variantKey].price) || 0,
+                    category: cartData[itemId][variantKey].category || "",
+                    subCategory: cartData[itemId][variantKey].subCategory || "",
                     paymentMethods: cartData[itemId][variantKey].paymentMethod
                       ? [cartData[itemId][variantKey].paymentMethod]
                       : [],
@@ -141,6 +143,8 @@ const ShopContextProvider = (props) => {
         image: product.image[0],
         name: product.name,
         price: product.price,
+        category: product.category,
+        subCategory: product.subCategory
       };
     }
 
@@ -157,6 +161,8 @@ const ShopContextProvider = (props) => {
             image: product.image[0],
             name: product.name,
             price: product.price,
+            category: product.category,
+            subCategory: product.subCategory
           },
           { headers: { token } }
         );
@@ -192,6 +198,8 @@ const ShopContextProvider = (props) => {
             oldVariantKey,
             newColor,
             size,
+            category: cartData[itemId][newVariantKey].category,
+            subCategory: cartData[itemId][newVariantKey].subCategory
           },
           { headers: { token } }
         );
@@ -241,6 +249,9 @@ const ShopContextProvider = (props) => {
 
     if (token) {
       try {
+        const category = cartData[itemId]?.[variantKey]?.category || "";
+        const subCategory = cartData[itemId]?.[variantKey]?.subCategory || "";
+        
         await axios.post(
           backendUrl + "/api/cart/update",
           {
@@ -249,6 +260,8 @@ const ShopContextProvider = (props) => {
             size,
             color: color || cartData[itemId]?.[variantKey]?.color || "#000000",
             quantity: parseInt(quantity),
+            category,
+            subCategory
           },
           { headers: { token } }
         );
@@ -313,6 +326,8 @@ const ShopContextProvider = (props) => {
     fetchPlatformFee();
   }, [backendUrl]);
 
+  const location = useLocation();
+  
   useEffect(() => {
     if (products.length === 0 || Object.keys(cartItems).length === 0) return;
   
@@ -351,32 +366,30 @@ const ShopContextProvider = (props) => {
       }
     }
   }, [cartItems, products, location.pathname]);
-
-
+  
   useEffect(() => {
     getProductsData();
   }, [getProductsData]);
 
-useEffect(() => {
-  let isMounted = true;
+  useEffect(() => {
+    let isMounted = true;
 
-  const checkToken = async () => {
-    if (!token && localStorage.getItem("token")) {
-      const storedToken = localStorage.getItem("token");
-      if (isMounted) {
-        setToken(storedToken);
-        await getUserCart(storedToken);
+    const checkToken = async () => {
+      if (!token && localStorage.getItem("token")) {
+        const storedToken = localStorage.getItem("token");
+        if (isMounted) {
+          setToken(storedToken);
+          await getUserCart(storedToken);
+        }
       }
-    }
-  };
+    };
 
-  checkToken();
+    checkToken();
 
-  return () => {
-    isMounted = false;
-  };
-}, [token, getUserCart]);
-
+    return () => {
+      isMounted = false;
+    };
+  }, [token, getUserCart]);
 
   const value = {
     products: products || [],
