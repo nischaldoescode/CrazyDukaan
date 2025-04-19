@@ -78,7 +78,6 @@ const Contact = () => {
         {/* Theme & Favicon */}
         <meta name="theme-color" content="#ffffff" />
         <link rel="icon" href="/favicon.ico" />
-        <link rel="canonical" href="https://crazydukaan.store/contact">
       </Helmet>
       <div className="bg-white">
         <div className="text-center text-2xl pt-10 border-t">
