@@ -89,7 +89,7 @@ const ProductItem = ({ id, image, name, price, className }) => {
                     <motion.div
                       key={index}
                       className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full border border-white shadow-sm relative
-              ${index === 0 ? "ring-1 ring-orange-500" : ""}`}
+              ${index === 0 ? "ring-1 ring-orange-500" : "border border-black"}`}
                       style={{
                         backgroundColor: color,
                         zIndex: 4 - index,
