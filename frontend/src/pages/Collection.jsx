@@ -169,6 +169,7 @@ const Collection = () => {
           FILTERS
           <img className={`h-3 sm:hidden ${showFilter ? 'rotate-90' : ''}`} src={assets.dropdown_icon} alt="" /> 
           <span className='w-8 sm:w-12 h-[1.7px] sm:h-[2.5px] bg-gray-700'></span>
+        </p>
         {/* Category Filter */}
         <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
           <p className='mb-3 text-sm font-medium'>CATEGORIES</p>
