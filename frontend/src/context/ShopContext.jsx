@@ -2,7 +2,7 @@ import { createContext, useEffect, useState, useCallback } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { useLocation } from "react-router-dom";
 export const ShopContext = createContext();
 
 const ShopContextProvider = (props) => {
@@ -313,42 +313,44 @@ const ShopContextProvider = (props) => {
     fetchPlatformFee();
   }, [backendUrl]);
 
-useEffect(() => {
-  if (products.length === 0 || Object.keys(cartItems).length === 0) return;
-
-  const updatedCart = { ...cartItems };
-  let deletedFound = false;
-
-  for (const productId in cartItems) {
-    const product = products.find((p) => p._id === productId);
-    const hasQty = Object.values(cartItems[productId]).some(
-      (variant) => variant?.quantity > 0
-    );
-
-    if (!product && hasQty) {
-      deletedFound = true;
-      delete updatedCart[productId];
+  useEffect(() => {
+    if (products.length === 0 || Object.keys(cartItems).length === 0) return;
+  
+    const updatedCart = { ...cartItems };
+    let deletedFound = false;
+  
+    for (const productId in cartItems) {
+      const product = products.find((p) => p._id === productId);
+      const hasQty = Object.values(cartItems[productId]).some(
+        (variant) => variant?.quantity > 0
+      );
+  
+      if (!product && hasQty) {
+        deletedFound = true;
+        delete updatedCart[productId];
+      }
     }
-  }
-
-  if (deletedFound) {
-    setCartItems(updatedCart);
-
-    const userId = localStorage.getItem("userId");
-    if (userId) {
-      axios
-        .post(`${backendUrl}/api/cart/clear-deleted`, {
-          userId,
-          updatedCart,
-        })
-        .catch((err) => console.error("Cart cleanup failed:", err));
+  
+    if (deletedFound) {
+      setCartItems(updatedCart);
+  
+      const userId = localStorage.getItem("userId");
+      if (userId) {
+        axios
+          .post(`${backendUrl}/api/cart/clear-deleted`, {
+            userId,
+            updatedCart,
+          })
+          .catch((err) => console.error("Cart cleanup failed:", err));
+      }
+  
+      if (location.pathname === "/cart") {
+        toast.error(
+          "Some items were removed from your cart as they're no longer available."
+        );
+      }
     }
-
-    toast.error(
-      "Some items were removed from your cart as they're no longer available."
-    );
-  }
-}, [cartItems, products]);
+  }, [cartItems, products, location.pathname]);
 
 
   useEffect(() => {
