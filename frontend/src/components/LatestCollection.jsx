@@ -72,7 +72,8 @@ const LatestCollection = () => {
                             id={item._id} 
                             image={item.image} 
                             name={item.name} 
-                            price={item.price} 
+                            price={item.price}
+                            originalPrice={item.originalPrice}
                             className="group-hover:shadow-lg transition-all duration-300"
                         />
                     </motion.div>
