@@ -5,7 +5,7 @@ import ProductItem from "../components/ProductItem";
 import { Helmet } from "react-helmet";
 import { useLocation, useNavigate, Navigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 
 const Collection = () => {
   const { products, search, showSearch } = useContext(ShopContext);
