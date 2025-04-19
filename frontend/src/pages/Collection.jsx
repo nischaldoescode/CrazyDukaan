@@ -167,8 +167,8 @@ const Collection = () => {
       <div className='min-w-60'>
         <p onClick={() => setShowFilter(!showFilter)} className='my-2 text-xl flex items-center cursor-pointer gap-2'>
           FILTERS
-          <img className={`h-3 sm:hidden ${showFilter ? 'rotate-90' : ''}`} src={assets.dropdown_icon} alt="" /> <p className='w-8 sm:w-12 h-[1.7px] sm:h-[2.5px] bg-gray-700'></p>
-        </p>
+          <img className={`h-3 sm:hidden ${showFilter ? 'rotate-90' : ''}`} src={assets.dropdown_icon} alt="" /> 
+          <span className='w-8 sm:w-12 h-[1.7px] sm:h-[2.5px] bg-gray-700'></span>
         {/* Category Filter */}
         <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
           <p className='mb-3 text-sm font-medium'>CATEGORIES</p>
@@ -195,7 +195,10 @@ const Collection = () => {
               <input className='w-3' type="checkbox" value={'Shoewear'} onChange={toggleSubCategory} checked={subCategory.includes('Shoewear')} /> Shoewear
             </p>
             <p className='flex gap-2'>
-              <input className='w-3' type="checkbox" value={'Winterwear'} onChange={toggleSubCategory} checked={subCategory.includes('Winterwear')} /> Tshirts
+              <input className='w-3' type="checkbox" value={'Winterwear'} onChange={toggleSubCategory} checked={subCategory.includes('Winterwear')} /> T-shirts
+            </p>
+            <p className='flex gap-2'>
+              <input className='w-3' type="checkbox" value={'Eyewear'} onChange={toggleSubCategory} checked={subCategory.includes('Eyewear')} /> SunGlasses
             </p>
           </div>
         </div>
