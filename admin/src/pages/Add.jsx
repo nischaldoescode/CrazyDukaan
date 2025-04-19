@@ -308,22 +308,23 @@ const Add = ({ token }) => {
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Product Original Price (₹)
           </label>
-          <input
-            onChange={(e) => {
-              const value = parseFloat(e.target.value);
-              if (value <= price) {
-                setOriginalPrice(value);
-              } else {
-                toast.error("Original Price must be less than Price")
-              }
-            }}
-            value={originalPrice}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
-            type="number"
-            placeholder="Strike Through Price"
-            min="0"
-            required
-          />
+         <input
+          onChange={(e) => {
+          const value = parseFloat(e.target.value);
+            if (value >= price) {
+            setOriginalPrice(value);
+          } else {
+          toast.error("Original Price must be greater than or equal to Price");
+          }
+        }}
+        value={originalPrice}
+        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+        type="number"
+        placeholder="Strike Through Price"
+        min="0"
+        required
+      />
+
         </div>
       </div>
 
