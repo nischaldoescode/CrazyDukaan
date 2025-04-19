@@ -205,7 +205,14 @@ const Product = () => {
                             ))}
                         </div>
                     </div>
-
+                            <div className="mt-2">
+            <span className="text-sm font-medium text-gray-500">
+              Category:{" "}
+            </span>
+            <span className="text-sm font-medium text-gray-900">
+              {productData.category}
+            </span>
+        </div>
                     <button
                         onClick={handleAddToCart}
                         className="w-full mt-10 bg-black text-white px-8 py-4 text-sm font-medium rounded-lg hover:bg-gray-800 
