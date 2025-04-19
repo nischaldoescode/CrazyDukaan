@@ -3,7 +3,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { Helmet } from "react-helmet";
 // Components
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -61,6 +61,21 @@ const App = () => {
   };
 
   return (
+    <Helmet>
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "Crazy Dukaan",
+      url: "https://crazydukaan.store",
+      logo: "https://crazydukaan.store/logo.png",
+      sameAs: [
+        "https://www.instagram.com/crazydukaan.store"
+      ]
+    })}
+  </script>
+</Helmet>
+
     <div className="flex flex-col min-h-screen bg-orange-100">
       <ToastContainer
         position="top-center"
