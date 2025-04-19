@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { motion } from "framer-motion";
 
-const ProductItem = ({ id, image, name, price, className }) => {
+const ProductItem = ({ id, image, name, price, className, originalPrice }) => {
   const { currency, products } = useContext(ShopContext);
   const [productColors, setProductColors] = useState([]);
 
