@@ -26,6 +26,46 @@ const PrivacyPolicy = () => {
   });
 
   return (
+    <Helmet>
+  <meta charSet="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms and Conditions | Crazy Dukaan - Dukaan in Your Hand</title>
+
+  <meta name="description" content="Read the Terms and Conditions for using Crazy Dukaan — your trusted platform for fashion, accessories, and outfits products. Know your rights, policies, and user guidelines." />
+  <meta name="keywords" content="Crazy Dukaan terms, conditions, user policy, terms and conditions, ecommerce rules, crazy store legal, shopping policies, crazy dukaan policy, crazy dukaan condition" />
+  <meta name="author" content="Crazy Dukaan" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="google-site-verification" content="Ge6IsUiKWA-SWtWQqAiihdEp-oczhyGYhtwewuGIYX4" />
+
+  <link rel="canonical" href="https://www.crazydukaan.store/termsandconditions" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.crazydukaan.store/termsandconditions" />
+  <meta property="og:title" content="Terms and Conditions | Crazy Dukaan" />
+  <meta property="og:description" content="Read the Terms and Conditions for using Crazy Dukaan — your trusted platform for fashion, accessories, and lifestyle products. Know your rights, policies, and user guidelines." />
+  <meta property="og:image" content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1744911085/zipkainysdn8qhlp0dix.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:site_name" content="Crazy Dukaan" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Terms and Conditions | Crazy Dukaan" />
+  <meta name="twitter:description" content="Read the Terms and Conditions for using Crazy Dukaan — your trusted platform for fashion, accessories, and lifestyle products. Know your rights, policies, and user guidelines." />
+  <meta name="twitter:image" content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1744911085/zipkainysdn8qhlp0dix.png" />
+
+  <!-- Extra useful meta -->
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+    <link rel="canonical" href="https://www.crazydukaan.store/termsandcondition" />
+</Helmet>
+
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 text-gray-800">
       <Title text1="Our" text2="Privacy Policy" />
       
