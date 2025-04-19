@@ -340,7 +340,6 @@ const Collection = () => {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
-        <link rel="canonical" href="https://www.crazydukaan.store/collection" />
       </Helmet>
       <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t mb-28">
         {/* Filter Options */}
