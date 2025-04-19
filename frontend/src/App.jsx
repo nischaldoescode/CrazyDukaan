@@ -61,7 +61,7 @@ const App = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-orange-100">
       <ToastContainer
         position="top-center"
         autoClose={3000}
