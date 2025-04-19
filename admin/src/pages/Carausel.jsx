@@ -111,21 +111,15 @@ const CarouselAdmin = ({ token }) => {
   };
 
   const handleDelete = async (publicId) => {
-    // Check if deleting would leave less than 4 images
-    if (images.length <= 4) {
-      toast.error("Cannot delete image. Minimum 4 images required.");
-      return;
-    }
-    
     try {
+      const encodedPublicId = encodeURIComponent(publicId);
       const response = await axios.delete(
-        `${backendUrl}/api/carousel/delete-image/${publicId}`, {
-        headers: { token },
-    });
+        `${backendUrl}/api/carousel/delete-image/${encodedPublicId}`,
+        { headers: { token } }
+      );
       
       if (response.data.success) {
         toast.success("Image deleted successfully");
-        // Remove from local state
         setImages(images.filter(img => img.public_id !== publicId));
       } else {
         toast.error(response.data.message || "Delete failed");
@@ -304,10 +298,10 @@ const CarouselAdmin = ({ token }) => {
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 flex items-start justify-end p-2">
-                      <div className="bg-white rounded-full shadow p-1">
+                      <div className="bg-white rounded-full shadow p-1 cursor-pointer">
                         <button 
                           onClick={() => handleDelete(image.public_id)}
-                          disabled={images.length <= 4}
+                          disabled={false}
                           className="p-1 text-red-500 hover:text-red-700 disabled:text-gray-400 transition-colors"
                           title={images.length <= 4 ? "Cannot delete - minimum 4 images required" : "Delete image"}
                         >
