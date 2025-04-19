@@ -87,7 +87,7 @@ const uploadCarouselImage = async (req, res) => {
 // Delete a carousel image
 const deleteCarouselImage = async (req, res) => {
   try {
-    const { publicId } = req.params;
+    const publicId = decodeURIComponent(req.params.publicId);
     
     if (!publicId) {
       return res.status(400).json({
@@ -96,32 +96,29 @@ const deleteCarouselImage = async (req, res) => {
       });
     }
     
-    // Find carousel document
-    const carousel = await carouselModel.findOne();
-    
-    if (!carousel) {
+    // Delete from Cloudinary first
+    await cloudinary.uploader.destroy(publicId);
+
+    // Instead of finding, modifying, and saving, use findOneAndUpdate
+    const result = await carouselModel.findOneAndUpdate(
+      {}, // Empty filter to match the single carousel document
+      { 
+        $pull: { images: { public_id: publicId } },
+        $set: { updatedAt: new Date() }
+      },
+      { 
+        new: true, // Return the updated document
+        runValidators: true // Run model validators
+      }
+    );
+
+    if (!result) {
       return res.status(404).json({
         success: false,
         message: "Carousel not found"
       });
     }
-    
-    // Check if we will have at least 4 images after deletion
-    if (carousel.images.length <= 4) {
-      return res.status(400).json({
-        success: false,
-        message: "Cannot delete image. Minimum 4 images required."
-      });
-    }
-    
-    // Delete from cloudinary
-    await cloudinary.uploader.destroy(publicId);
-    
-    // Remove from database
-    carousel.images = carousel.images.filter(img => img.public_id !== publicId);
-    carousel.updatedAt = new Date();
-    await carousel.save();
-    
+
     res.json({
       success: true,
       message: "Image deleted successfully"
