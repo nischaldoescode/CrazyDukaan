@@ -140,10 +140,16 @@ const Product = () => {
                 {/* Product Info - Sticky on desktop */}
                 <div className="flex-1 px-4 sm:px-6 lg:sticky lg:top-4 lg:self-start lg:max-w-md xl:max-w-lg">
                     <h1 className="font-bold text-2xl sm:text-3xl mt-2 text-gray-900">{productData.name}</h1>
-                    <p className="mt-4 text-3xl font-semibold text-gray-800">
+                    <div className="flex flex-row gap-3 text-center">
+                    <p className="mt-4 text-3xl font-semibold text-gray-800 text-center">
                         {currency}
                         {productData.price.toLocaleString()}
                     </p>
+                    <p className="mt-5 text-xl font-semibold text-gray-400 text-center line-through decoration-black">
+                        {currency}
+                        {productData.originalPrice.toLocaleString()}
+                    </p>
+                    </div>
                     
                     <div className="mt-6 p-4 bg-gray-50 rounded-lg">
                         <p className="text-gray-600">{productData.description}</p>
