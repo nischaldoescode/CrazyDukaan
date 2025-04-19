@@ -355,26 +355,26 @@ useEffect(() => {
     getProductsData();
   }, [getProductsData]);
 
-  useEffect(() => {
-    let isMounted = true;
+useEffect(() => {
+  let isMounted = true;
 
-    const checkToken = async () => {
-      if (!token && localStorage.getItem("token")) {
-        const storedToken = localStorage.getItem("token");
-        if (isMounted) setToken(storedToken);
+  const checkToken = async () => {
+    if (!token && localStorage.getItem("token")) {
+      const storedToken = localStorage.getItem("token");
+      if (isMounted) {
+        setToken(storedToken);
         await getUserCart(storedToken);
       }
-      if (token && isMounted) {
-        await getUserCart(token);
-      }
-    };
+    }
+  };
 
-    checkToken();
+  checkToken();
 
-    return () => {
-      isMounted = false;
-    };
-  }, [token, getUserCart]);
+  return () => {
+    isMounted = false;
+  };
+}, [token, getUserCart]);
+
 
   const value = {
     products: products || [],
