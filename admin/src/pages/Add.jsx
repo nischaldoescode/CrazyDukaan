@@ -37,28 +37,21 @@ const Add = ({ token }) => {
     const isShoes = subCategory === "Shoewear";
     const isTopwear = subCategory === "Winterwear";
     const isEyewear = subCategory === "Eyewear";
-    if (isWatch || isEyewear) {
+    const isLadiesPurse = subCategory === "WMLadiesBag";
+    
+    if (isWatch || isEyewear || isLadiesPurse) {
       setAvailableSizes(["one-size"]);
       setSelectedSizes(["one-size"]);
     } else if (isShoes) {
-      if (category === "Kids") {
-        const kidsSizes = Array.from({ length: 7 }, (_, i) => `EU ${30 + i}`);
-        setAvailableSizes(kidsSizes);
-      } else {
-        const adultSizes = Array.from({ length: 13 }, (_, i) => `EU ${36 + i}`);
-        setAvailableSizes(adultSizes);
-      }
+      const adultSizes = Array.from({ length: 13 }, (_, i) => `EU ${36 + i}`);
+      setAvailableSizes(adultSizes);
     } else if (isTopwear) {
-      if (category === "Kids") {
-        setAvailableSizes(["XS", "S", "M"]);
-      } else {
-        setAvailableSizes(["S", "M", "L", "XL", "XXL"]);
-      }
+      setAvailableSizes(["S", "M", "L", "XL", "XXL"]);
     } else {
       setAvailableSizes([]);
     }
     
-    if (!(isWatch || isEyewear)) {
+    if (!(isWatch || isEyewear || isLadiesPurse)) {
       setSelectedSizes([]);
     }
   }, [category, subCategory]);
@@ -66,7 +59,7 @@ const Add = ({ token }) => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    if (subCategory !== "Handwear" && subCategory !== "Eyewear" && selectedSizes.length === 0) {
+    if (subCategory !== "Handwear" && subCategory !== "Eyewear" && subCategory !== "WMLadiesBag" && selectedSizes.length === 0) {
       toast.error("Please select at least one size");
       return;
     }
@@ -274,7 +267,7 @@ const Add = ({ token }) => {
           >
             <option value="Men">Men</option>
             <option value="Women">Women</option>
-            <option value="Kids">Kids</option>
+            <option value="Unisex">Unisex</option>
           </select>
         </div>
 
@@ -289,6 +282,7 @@ const Add = ({ token }) => {
             <option value="Handwear">Watches</option>
             <option value="Winterwear">T-shirts</option>
             <option value="Eyewear">Sunglasses</option>
+            <option value="WMLadiesBag">Ladies Purse</option>
           </select>
         </div>
 
@@ -308,23 +302,22 @@ const Add = ({ token }) => {
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Product Original Price (₹)
           </label>
-         <input
-          onChange={(e) => {
-          const value = parseFloat(e.target.value);
-            if (value >= price) {
-            setOriginalPrice(value);
-          } else {
-          toast.error("Original Price must be greater than or equal to Price");
-          }
-        }}
-        value={originalPrice}
-        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
-        type="number"
-        placeholder="Strike Through Price"
-        min="0"
-        required
-      />
-
+          <input
+            onChange={(e) => {
+              const value = parseFloat(e.target.value);
+              if (value <= price) {
+                setOriginalPrice(value);
+              } else {
+                toast.error("Original Price must be less than Price")
+              }
+            }}
+            value={originalPrice}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+            type="number"
+            placeholder="Strike Through Price"
+            min="0"
+            required
+          />
         </div>
       </div>
 
@@ -381,7 +374,7 @@ const Add = ({ token }) => {
         <h3 className="text-lg md:text-xl font-semibold mb-3 text-gray-800">
           Available Sizes
         </h3>
-        {subCategory !== "Handwear" && subCategory !== "Eyewear" ? (
+        {subCategory !== "Handwear" && subCategory !== "Eyewear" && subCategory !== "WMLadiesBag" ? (
           <>
             <div className="flex flex-wrap gap-2 mb-3">
               {availableSizes.map((size) => (
@@ -425,7 +418,9 @@ const Add = ({ token }) => {
             <p className="text-gray-500 italic text-sm">
               {subCategory === "Handwear"
                 ? "(Default for watches)"
-                : "(Default for sunglasses)"}
+                : subCategory === "Eyewear"
+                ? "(Default for sunglasses)"
+                : "(Default for ladies purse)"}
             </p>
           </div>
         )}
