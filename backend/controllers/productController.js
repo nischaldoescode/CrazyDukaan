@@ -182,6 +182,39 @@ const removeCoupon = async (req, res) => {
   }
 };
 
+const updateProduct = async (req, res) => {
+  try {
+    const { id, name, price, originalPrice } = req.body;
+
+    // Validate required fields
+    if (!name || price === undefined) {
+      return res.json({ success: false, message: "Name and price are required" });
+    }
+
+    const updateData = {
+      name,
+      price: Number(price),
+      originalPrice: originalPrice ? Number(originalPrice) : undefined,
+      updatedAt: Date.now()
+    };
+
+    const updatedProduct = await productModel.findByIdAndUpdate(
+      id,
+      updateData,
+      { new: true }
+    );
+
+    if (!updatedProduct) {
+      return res.json({ success: false, message: "Product not found" });
+    }
+
+    res.json({ success: true, message: "Product updated successfully" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
 
 export {
   listProducts,
@@ -189,5 +222,6 @@ export {
   removeProduct,
   singleProduct,
   validateCoupon,
-  removeCoupon
+  removeCoupon,
+  updateProduct
 };
