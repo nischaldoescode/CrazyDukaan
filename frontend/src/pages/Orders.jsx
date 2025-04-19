@@ -73,7 +73,8 @@ const Orders = () => {
               payment: order.payment,
               paymentMethod: order.paymentMethod,
               date: order.date,
-              orderId: order._id // Add order ID for reference
+              orderId: order._id, // Add order ID for reference
+              category: item.category
             });
           });
         });
@@ -265,6 +266,7 @@ const Orders = () => {
                         <p>{currency}{item.price}</p>
                         <p>Qty: {item.quantity}</p>
                         <p>Size: {item.size}</p>
+                        <p>Category: {item.category}</p>
                         {item.color && (
                           <div className="flex items-center">
                             <span className="mr-1">Color:</span>
