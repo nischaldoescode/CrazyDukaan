@@ -143,11 +143,11 @@ const Product = () => {
                     <div className="flex flex-row gap-3 text-center">
                     <p className="mt-4 text-3xl font-semibold text-gray-800 text-center">
                         {currency}
-                        {productData.price.toLocaleString()}
+                        {productData.price ? productData.price.toLocaleString() : "0"}
                     </p>
                     <p className="mt-5 text-xl font-semibold text-gray-400 text-center line-through decoration-black">
                         {currency}
-                        {productData.originalPrice.toLocaleString()}
+                        {productData.originalPrice ? productData.originalPrice.toLocaleString() : ""}
                     </p>
                     </div>
                     
