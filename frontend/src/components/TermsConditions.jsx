@@ -38,8 +38,6 @@ const PrivacyPolicy = () => {
   <meta name="google-site-verification" content="Ge6IsUiKWA-SWtWQqAiihdEp-oczhyGYhtwewuGIYX4" />
 
   <link rel="canonical" href="https://www.crazydukaan.store/termsandconditions" />
-
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.crazydukaan.store/termsandconditions" />
   <meta property="og:title" content="Terms and Conditions | Crazy Dukaan" />
@@ -51,13 +49,11 @@ const PrivacyPolicy = () => {
   <meta property="og:site_name" content="Crazy Dukaan" />
   <meta property="og:locale" content="en_US" />
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Terms and Conditions | Crazy Dukaan" />
   <meta name="twitter:description" content="Read the Terms and Conditions for using Crazy Dukaan — your trusted platform for fashion, accessories, and lifestyle products. Know your rights, policies, and user guidelines." />
   <meta name="twitter:image" content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1744911085/zipkainysdn8qhlp0dix.png" />
 
-  <!-- Extra useful meta -->
   <meta name="theme-color" content="#ffffff" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
