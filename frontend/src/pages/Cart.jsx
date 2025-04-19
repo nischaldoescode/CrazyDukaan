@@ -112,6 +112,14 @@ useEffect(() => {
                   </div>
                 )}
               </div>
+            <div className="mt-2">
+                <span className="text-sm font-medium text-gray-500">
+                  Category:{" "}
+                </span>
+                <span className="text-sm font-medium text-gray-900">
+                  {productData.category}
+                </span>
+              </div>
             </div>
           </div>
 
