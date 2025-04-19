@@ -106,7 +106,6 @@ const Collection = () => {
     <meta name="author" content="Crazy Dukaan" />
     <meta name="robots" content="index, follow" />
     <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-    <link rel="canonical" href="https://www.crazydukaan.store/collection" />
 
     {/* Open Graph (OG) Meta Tags */}
     <meta property="og:type" content="website" />
@@ -161,6 +160,7 @@ const Collection = () => {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
+        <link rel="canonical" href="https://www.crazydukaan.store/collection" />
   </Helmet>
     <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t mb-4'>
       {/* Filter Options */}
