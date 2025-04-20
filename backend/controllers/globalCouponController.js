@@ -2,7 +2,6 @@ import GlobalCoupon from "../models/globalCouponModel.js";
 import productModel from "../models/productModel.js";
 
 // Create a global coupon
-// Create a global coupon
 const createGlobalCoupon = async (req, res) => {
     try {
       
@@ -130,10 +129,47 @@ const toggleGlobalCoupon = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+const checkGlobalCoupon = async (req, res) => {
+    try {
+      const { code } = req.body;
+      
+      if (!code) {
+        return res.json({ success: false, message: "Coupon code is required" });
+      }
+      
+      // Convert code to uppercase and trim for consistency
+      const couponCode = code.trim().toUpperCase();
+      
+      // Check if this code exists in global coupons
+      const existingGlobalCoupon = await GlobalCoupon.findOne({
+        code: { $regex: `^\\s*${couponCode}\\s*$`, $options: "i" }
+      });
+      
+      if (existingGlobalCoupon) {
+        return res.json({ 
+          success: true, 
+          exists: true,
+          message: "This coupon code exists in global coupons",
+          coupon: {
+            code: existingGlobalCoupon.code,
+            discount: existingGlobalCoupon.discount,
+            active: existingGlobalCoupon.active
+          }
+        });
+      }
+      
+      res.json({ success: true, exists: false });
+      
+    } catch (error) {
+      console.error("Error in checkGlobalCoupon:", error);
+      res.json({ success: false, message: error.message });
+    }
+  };
 
 export {
   createGlobalCoupon,
   listGlobalCoupons,
   deleteGlobalCoupon,
-  toggleGlobalCoupon
+  toggleGlobalCoupon,
+  checkGlobalCoupon
 };
