@@ -79,14 +79,15 @@ const Home = () => {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6XEBXHJCN7"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-6XEBXHJCN7');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XEBXHJCN7"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-6XEBXHJCN7');
+          `}
+        </script>
       </Helmet>
 
       <div className="overflow-x-hidden">
