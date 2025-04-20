@@ -73,6 +73,11 @@ const Add = ({ token }) => {
       return;
     }
     
+    if (Number(originalPrice) <= Number(price)) {
+      toast.error("Original price must be greater than the selling price");
+      return;
+    }
+    
     if (couponCode.trim() !== "" && discountOption === 0) {
       toast.error("Please select a discount option along with the coupon code.");
       return;
@@ -303,14 +308,7 @@ const Add = ({ token }) => {
             Product Original Price (₹)
           </label>
           <input
-            onChange={(e) => {
-              const value = parseFloat(e.target.value);
-              if (value <= price) {
-                setOriginalPrice(value);
-              } else {
-                toast.error("Original Price must be less than Price")
-              }
-            }}
+            onChange={(e) => setOriginalPrice(parseFloat(e.target.value))}
             value={originalPrice}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
             type="number"
