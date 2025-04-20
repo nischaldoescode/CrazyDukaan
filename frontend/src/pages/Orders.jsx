@@ -121,6 +121,15 @@ const Orders = () => {
 
     {/* Instagram (only basic impact via OG) */}
     <meta property="og:site" content="https://www.instagram.com/crazydukaan/" />
+          <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XEBXHJCN7"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-6XEBXHJCN7');
+          `}
+        </script>
   </Helmet>
     return (
       <div className="border-t pt-16 min-h-[60vh] flex flex-col items-center justify-center text-center px-4">
@@ -187,6 +196,15 @@ const Orders = () => {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XEBXHJCN7"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-6XEBXHJCN7');
+          `}
+        </script>
     </Helmet>
       <div className="border-t pt-16 min-h-[60vh] flex flex-col items-center justify-center">
         <div className="text-2xl mb-8">
