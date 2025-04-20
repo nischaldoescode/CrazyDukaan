@@ -31,6 +31,21 @@ const Add = ({ token }) => {
   // Payment Method
   const [paymentMethod, setPaymentMethod] = useState("Razorpay");
 
+  const checkGlobalCouponExists = async (code) => {
+    try {
+      const response = await axios.post(
+        `${backendUrl}/api/global-coupon/check`,
+        { code },
+        { headers: { token } }
+      );
+      
+      return response.data;
+    } catch (error) {
+      console.error("Error checking global coupon:", error);
+      return { success: false, exists: false };
+    }
+  };
+
   // Update available sizes based on category and subcategory
   useEffect(() => {
     const isWatch = subCategory === "Handwear";
@@ -82,6 +97,16 @@ const Add = ({ token }) => {
       toast.error("Please select a discount option along with the coupon code.");
       return;
     }  
+
+    if (couponCode.trim() !== "") {
+    const result = await checkGlobalCouponExists(couponCode);
+      
+      if (result.success && result.exists) {
+        toast.info(`This coupon code exists in global coupons list with ${result.coupon.discount}% discount${!result.coupon.active ? ' (inactive)' : ''}`);
+        // Prevent submission when a global coupon is found:
+        return;
+      }
+    }
     try {
       const formData = new FormData();
       formData.append("name", name);
