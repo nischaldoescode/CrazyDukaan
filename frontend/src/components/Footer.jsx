@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 const Footer = () => {
   const navigate = useNavigate();
   return (
-    <div className='bg-gradient-to-b from-white to-gray-50 py-8 w-full rounded-2xl mt-44'>
-      <div className='max-w-6xl mx-auto px-4 flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-8 mt-[8rem] mb-[3rem] text-sm'>
+    <div className='bg-gradient-to-b from-white to-gray-50 py-8 w-full rounded-2xl mt-48 py-3'>
+      <div className='max-w-6xl mx-auto px-4 flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-8 mt-[3rem] mb-[3rem] text-sm'>
         {/* Logo and Description Section */}
         <div className='flex flex-col overflow-hidden'>
             <a href="/" className='w-fit overflow-hidden'>
