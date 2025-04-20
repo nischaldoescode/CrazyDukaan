@@ -191,7 +191,8 @@ const Add = ({ token }) => {
   };
 
   const handleCouponChange = (e) => {
-    setCouponCode(e.target.value);
+    const value = e.target.value.replace(/\s+/g, '').toUpperCase(); // remove all spaces + uppercase
+    setCouponCode(value);
     if (e.target.value === "SAVE10") setDiscount(10);
     else if (e.target.value === "SAVE15") setDiscount(15);
     else if (e.target.value === "SAVE20") setDiscount(20);
