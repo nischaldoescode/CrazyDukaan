@@ -10,6 +10,7 @@ import InteractiveScrollingBox from "../components/InteractiveBox";
 import FrequentyAskedQuestions from "../components/FrequentlyQuestions";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
+import ProductBanner from "../components/CouponBanner";
 const fadeInLeft = {
   hidden: { opacity: 0, x: -20 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.6 } },
