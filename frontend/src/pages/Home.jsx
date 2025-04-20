@@ -94,6 +94,7 @@ const Home = () => {
       <div className="overflow-x-hidden">
         {" "}
         {/* Fix horizontal scroll */}
+        <ProductBanner />
         <WhatsAppButton />
         <motion.div
           initial="hidden"
