@@ -77,6 +77,14 @@ const Contact = () => {
         {/* Theme & Favicon */}
         <meta name="theme-color" content="#ffffff" />
         <link rel="icon" href="/favicon.ico" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6XEBXHJCN7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6XEBXHJCN7');
+</script>
       </Helmet>
       <div className="bg-white">
         <div className="text-center text-2xl pt-10 border-t">
