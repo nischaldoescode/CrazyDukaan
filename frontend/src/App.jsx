@@ -30,6 +30,11 @@ const App = () => {
   const prevPath = useRef(location.pathname);
   const [direction, setDirection] = useState("right");
 
+  // Reset scroll position when route changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   useEffect(() => {
     if (prevPath.current !== location.pathname) {
       setDirection(prevPath.current < location.pathname ? "right" : "left");
@@ -46,7 +51,7 @@ const App = () => {
       x: 0,
       opacity: 1,
       transition: {
-        duration: 0.8,
+        duration: 0.5, // Reduced from 0.8 to make transitions faster
         ease: "easeInOut",
       },
     },
@@ -54,7 +59,7 @@ const App = () => {
       x: direction === "right" ? "-100%" : "100%",
       opacity: 0,
       transition: {
-        duration: 0.8,
+        duration: 0.5, // Reduced from 0.8 to make transitions faster
         ease: "easeInOut",
       },
     }),
@@ -73,12 +78,14 @@ const App = () => {
         draggable
         pauseOnHover
       />
-<Loader />
+      <Loader />
+      
+      {/* Navbar placed outside AnimatePresence for better UX */}
+      <SearchBar />
+      <Navbar />
+      
       <main className="flex-grow px-2 sm:px-[2vw] md:px-[3vw] lg:px-[5vw]">
-        <SearchBar />
-        <Navbar />
-
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
           <Routes location={location} key={location.pathname}>
             <Route
               path="/"
@@ -215,20 +222,6 @@ const App = () => {
               }
             />
 
-            {/* <Route
-              path="/verify"
-              element={
-                <motion.div
-                  custom={direction}
-                  variants={pageVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  <Verify />
-                </motion.div>
-              }
-            /> */}
             <Route
               path="/termsconditions"
               element={
@@ -282,13 +275,3 @@ const App = () => {
 };
 
 export default App;
-
-
-// useEffect(() => {
-//   const disableRightClick = (e) => e.preventDefault();
-//   document.addEventListener("contextmenu", disableRightClick);
-
-//   return () => {
-//     document.removeEventListener("contextmenu", disableRightClick);
-//   };
-// }, []);
