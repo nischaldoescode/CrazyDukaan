@@ -10,8 +10,7 @@ import orderRouter from './routes/orderRoute.js'
 import shipmentRoutes from './routes/shipmentRoutes.js';
 import platfromfeeroutes from './routes/platformFeeRoutes.js';
 import heroRoutes from "./routes/heroRoutes.js";
-
-
+import globalCouponRouter from './routes/globalCouponRoutes.js';
 
 
 // App Config
@@ -34,6 +33,7 @@ app.use('/api/platform', platfromfeeroutes);
 // app.use('/api/hero', heroRoutes);
 // Add this with your other routes
 app.use("/api/carousel", heroRoutes);
+app.use('/api/global-coupon', globalCouponRouter);
 
 app.get('/',(req,res)=>{
     res.send("API Working")
