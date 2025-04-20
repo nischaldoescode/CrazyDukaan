@@ -259,9 +259,6 @@ const Product = () => {
             {/* Description & Review Section */}
             <div className="mt-20 mb-16">
                 <div className="border px-6 py-8 text-gray-600">
-                    <p className="mb-4">
-                        {productData.description}
-                    </p>
                     <ul className="list-disc pl-5 space-y-2">
                         <li>Premium quality materials for long-lasting durability</li>
                         <li>Manufacturer warranty included</li>
