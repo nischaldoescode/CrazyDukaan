@@ -27,8 +27,8 @@ const Footer = () => {
               />
             </a>
             <p className='max-w-full text-gray-600 leading-relaxed'>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-            </p>
+  Crazy Dukaan – Dukaan in your Hand. Bringing you stylish and comfortable products that reflect top-tier trends. While we’re just starting out, our collection offers great value for the quality you receive — crafted to look and feel premium.
+</p>
             
             {/* Social Media Icons */}
             <div className='flex gap-4 mt-6'>
