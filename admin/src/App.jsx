@@ -13,7 +13,7 @@ import Dashboard from './pages/Dashboard'
 // import PlatfromFee from './pages/PlatformFee'
 import CarauselSlider from './pages/Carausel'
 import Users from './pages/Users'
-
+import GlobalCoupons from './pages/GlobalCoupons';
 export const backendUrl = import.meta.env.VITE_BACKEND_URL
 export const currency = '₹ '
 
@@ -77,6 +77,7 @@ const App = () => {
                     {/* <Route path='/PlatformFee' element={<PlatfromFee token={token} />} /> */}
                     <Route path='/Carausel' element={<CarauselSlider token={token} />} />
                     <Route path='/Users' element={<Users token={token} />} />
+                    <Route path="/global-coupons" element={<GlobalCoupons token={token} />} />
                     <Route path='/' element={<Dashboard token={token} />} />
                   </Routes>
                 </div>
