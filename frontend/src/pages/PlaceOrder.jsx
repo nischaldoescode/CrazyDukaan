@@ -40,6 +40,7 @@ const PlaceOrder = () => {
   const [couponCode, setCouponCode] = useState("");
   const [couponDiscount, setCouponDiscount] = useState(0);
   const [couponMessage, setCouponMessage] = useState("");
+  const [couponApplied, setCouponApplied] = useState(false);
   const [method, setMethod] = useState("Razorpay");
 
   const [couponInput, setCouponInput] = useState("");
