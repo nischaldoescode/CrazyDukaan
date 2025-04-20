@@ -28,7 +28,7 @@ const InstagramButton = () => {
           alignItems: "center",
           background: "radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)",
           color: "white",
-          padding: "8px 8px",
+          padding: "7px 7px",
           borderRadius: "8px",
           textDecoration: "none",
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
