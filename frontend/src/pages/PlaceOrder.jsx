@@ -558,20 +558,25 @@ const PlaceOrder = () => {
               Have a coupon?
             </label>
             <div className="flex gap-3">
-              <input
-                type="text"
-                value={couponInput.toUpperCase()}
-                onChange={(e) => setCouponInput(e.target.value)}
-                placeholder="Enter coupon code"
-                className="border px-3 py-2 flex-grow rounded-md focus:outline-none focus:ring focus:border-blue-300 uppercase"
-              />
-              <button
-                type="button"
-                onClick={applyCoupon}
-                className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800"
-              >
-                Apply
-              </button>
+                <input
+                  type="text"
+                  value={couponInput.toUpperCase()}
+                  onChange={(e) => setCouponInput(e.target.value)}
+                  placeholder="Enter coupon code"
+                  className="border px-3 py-2 flex-grow rounded-md focus:outline-none focus:ring focus:border-blue-300 uppercase"
+                />
+                <button
+                  type="button"
+                  onClick={applyCoupon}
+                  disabled={couponApplied}
+                  className={`px-4 py-2 rounded-md text-white ${
+                    couponApplied
+                      ? "bg-gray-500 cursor-not-allowed"
+                      : "bg-black hover:bg-gray-800"
+                  }`}
+                >
+                  {couponApplied ? "Applied" : "Apply"}
+                </button>
             </div>
             {couponMessage && (
               <p className="mt-2 text-sm text-green-600">{couponMessage}</p>
