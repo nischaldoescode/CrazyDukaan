@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 
 const ProductItem = ({ id, image, name, price, className, originalPrice }) => {
   const { currency, products } = useContext(ShopContext);
   const [productColors, setProductColors] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const currentProduct = products.find((product) => product._id === id);
@@ -17,6 +18,13 @@ const ProductItem = ({ id, image, name, price, className, originalPrice }) => {
     }
   }, [id, products]);
 
+  // Handle navigation with scroll reset
+  const handleProductClick = (e) => {
+    e.preventDefault();
+    navigate(`/product/${id}`);
+    window.scrollTo(0, 0);
+  };
+
   return (
     <motion.div
       className={`bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-orange-200 ${className}`}
@@ -26,9 +34,9 @@ const ProductItem = ({ id, image, name, price, className, originalPrice }) => {
           "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
       }}
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      viewport={{ once: true }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
     >
       <div className="relative h-full flex flex-col group w-full">
         {/* Image container with improved blending */}
@@ -39,6 +47,7 @@ const ProductItem = ({ id, image, name, price, className, originalPrice }) => {
             alt={name}
             whileHover={{ scale: 1.08 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
+            loading="lazy"
             style={{
               objectFit: "cover",
               objectPosition: "center",
@@ -127,6 +136,7 @@ const ProductItem = ({ id, image, name, price, className, originalPrice }) => {
             <Link
               className="flex items-center justify-center w-full bg-orange-600 hover:bg-orange-700 text-white py-1 px-1 rounded-lg text-sm sm:text-base font-medium transition-all duration-300 shadow-md hover:shadow-lg"
               to={`/product/${id}`}
+              onClick={handleProductClick}
             >
               <img
                 src={assets.view}
