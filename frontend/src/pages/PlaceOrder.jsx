@@ -10,6 +10,7 @@ import "react-phone-input-2/lib/style.css";
 import OrderProcessingAnimation from "../components/OrderProcessingAnimation";
 import WhatsAppButton from "../components/whatsappbutton";
 import "react-phone-input-2/lib/material.css";
+import { Helmet } from "react-helmet";
 const PlaceOrder = () => {
   const {
     navigate,
@@ -404,6 +405,18 @@ const PlaceOrder = () => {
   };
 
   return (
+        <>
+    <Helmet>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XEBXHJCN7"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-6XEBXHJCN7');
+          `}
+        </script>
+    </Helmet>
     <form
       onSubmit={onSubmitHandler}
       className="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t"
@@ -646,6 +659,7 @@ const PlaceOrder = () => {
         )}
       </div>
     </form>
+   </>
   );
 };
 
