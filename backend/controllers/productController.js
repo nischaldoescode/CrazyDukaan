@@ -1,6 +1,7 @@
 import { v2 as cloudinary } from "cloudinary";
 import productModel from "../models/productModel.js";
 import mongoose from "mongoose";
+import GlobalCoupon from "../models/globalCouponModel.js";
 
 // function for add product
 const addProduct = async (req, res) => {
@@ -77,21 +78,50 @@ const addProduct = async (req, res) => {
 const validateCoupon = async (req, res) => {
   try {
     const { couponCode } = req.body;
-
+    
+    if (!couponCode) {
+      return res.json({ success: false, message: "Coupon code is required" });
+    }
+    
+    const trimmedCode = couponCode.trim().toUpperCase();
+    
+    // First check for product-specific coupon
     const product = await productModel.findOne({
-      couponCode: { $regex: `^${couponCode}$`, $options: "i" },
+      couponCode: { $regex: `^${trimmedCode}$`, $options: "i" }
     });
-
+    
     if (product) {
       return res.json({
         success: true,
         coupon: {
           couponCode: product.couponCode,
-          discountOption: Number(product.discount),
-        },
+          discountOption: Number(product.discount)
+        }
       });
     }
-
+    
+    // If no product coupon found, check for global coupon
+    const globalCoupon = await GlobalCoupon.findOne({
+      code: { $regex: `^${trimmedCode}$`, $options: "i" },
+      active: true
+    });
+    
+    if (globalCoupon) {
+      // Check if the coupon has expired
+      if (globalCoupon.expiresAt && new Date() > globalCoupon.expiresAt) {
+        return res.json({ success: false, message: "This coupon has expired" });
+      }
+      
+      return res.json({
+        success: true,
+        coupon: {
+          couponCode: globalCoupon.code,
+          discountOption: Number(globalCoupon.discount)
+        }
+      });
+    }
+    
+    // No valid coupon found
     res.json({ success: false, message: "Invalid coupon code" });
   } catch (err) {
     console.error(err);
