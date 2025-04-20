@@ -12,4 +12,4 @@ Disallow: /placeorder
 Disallow: /orders
 
 # Sitemap
-Sitemap: https://www.crazydukaan.store/sitemap.xml
+Sitemap: https://crazydukaan.store/sitemap.xml
