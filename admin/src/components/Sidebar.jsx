@@ -1,6 +1,8 @@
 import React from "react"
 import { NavLink } from "react-router-dom"
 import { assets } from "../assets/assets"
+import { FaTicketAlt } from 'react-icons/fa';
+import { FaUsers } from "react-icons/fa";
 
 const Sidebar = ({ isOpen, closeSidebar }) => {
   return (
@@ -87,6 +89,17 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
             <img className="w-8 h-8 min-w-[20px]" src={assets.shipment_icon} alt="" />
             {isOpen && <span className="whitespace-nowrap">Shipment Fee</span>}
           </NavLink>
+          <NavLink
+            className={({ isActive }) => 
+              `flex items-center gap-3 p-3 rounded-lg transition-all ${
+                isActive ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-100'
+              }`
+            }to="/global-coupons"
+            onClick={closeSidebar}
+            >
+             <FaTicketAlt className="w-8 h-8 min-w-[20px]" />
+             {isOpen && <span className="whitespace-nowrap">Global Coupons</span>}
+            </NavLink>
           
           <NavLink
             className={({ isActive }) => 
@@ -109,7 +122,7 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
             to="/Users"
             onClick={closeSidebar}
           >
-            <img className="w-8 h-8 min-w-[20px]" src={assets.carousel} alt="" />
+            <FaUsers className="w-8 h-8 min-w-[20px]" />
             {isOpen && <span className="whitespace-nowrap">Users</span>}
           </NavLink>
         </div>
