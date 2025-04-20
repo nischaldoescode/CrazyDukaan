@@ -45,19 +45,27 @@ const PlaceOrder = () => {
   const [couponInput, setCouponInput] = useState("");
 
   const applyCoupon = async () => {
+    if (couponApplied) {
+      setCouponMessage("Coupon already applied.");
+      return;
+    }
+
     try {
       const trimmed = couponInput.trim().toUpperCase();
-      // console.log("Sending coupon code:", trimmed);
-  
-      const res = await axios.post(`${backendUrl}/api/product/validate-coupon`, {
-        couponCode: trimmed,
-      });
-  
-      // console.log("📌 Coupon validation response:", res.data);
-  
+
+      const res = await axios.post(
+        `${backendUrl}/api/product/validate-coupon`,
+        {
+          couponCode: trimmed,
+        }
+      );
+
       if (res.data.success) {
         setCouponDiscount(res.data.coupon.discountOption);
-        setCouponMessage(`Coupon applied! You got ${res.data.coupon.discountOption}% off`);
+        setCouponMessage(
+          `Coupon applied! You got ${res.data.coupon.discountOption}% off`
+        );
+        setCouponApplied(true); // lock further applications
       } else {
         setCouponDiscount(0);
         setCouponMessage("Invalid coupon code");
