@@ -151,9 +151,15 @@ const Product = () => {
                     </p>
                     </div>
                     
-                    <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-                        <p className="text-gray-600">{productData.description}</p>
-                    </div>
+                <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+                      <p className="text-gray-600 whitespace-pre-line">
+                            {productData.description
+                                .split(/(?<=[.!?])\s+/) // Split on `.`, `!`, `?` followed by space
+                                .map((line, idx) => `${line}\n`)
+                                .join('')}
+                      </p>
+                </div>
+
                     {/* Color Selection */}
                     {productData.colors?.length > 0 && (
                         <div className="mt-8">
