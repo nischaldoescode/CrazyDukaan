@@ -16,7 +16,7 @@ const PromotionalBanner = () => {
             }}
           >
             <span className="inline-block text-white text-lg md:text-xl font-bold">
-              🎉 New user? Use code <span className="bg-white text-blue-600 px-2 py-1 rounded-md mx-1 md:mx-2">VISHNU</span> to get special discount! 🎉
+              🎉 New user? Use code <span className="bg-white text-blue-600 px-2 py-1 rounded-md mx-1 md:mx-2">CRAZY</span> to get special discount! 🎉
             </span>
           </div>
         </div>
