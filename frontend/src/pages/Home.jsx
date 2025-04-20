@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { ShopContext } from "../context/ShopContext";
+import { useLocation } from "react-router-dom";
 import Hero from "../components/Hero";
 import LatestCollection from "../components/LatestCollection";
 import BestSeller from "../components/BestSeller";
@@ -11,6 +12,7 @@ import FrequentyAskedQuestions from "../components/FrequentlyQuestions";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
 import ProductBanner from "../components/CouponBanner";
+
 const fadeInLeft = {
   hidden: { opacity: 0, x: -20 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.6 } },
@@ -23,6 +25,12 @@ const fadeInRight = {
 
 const Home = () => {
   const { token } = useContext(ShopContext);
+  const location = useLocation();
+  
+  // Reset scroll position when the Home component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -80,7 +88,7 @@ const Home = () => {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XEBXHJCN7"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XEBXHJCN7"></script>
         <script>
           {`
             window.dataLayer = window.dataLayer || [];
@@ -91,15 +99,13 @@ const Home = () => {
         </script>
       </Helmet>
 
-      <div className="overflow-x-hidden">
-        {" "}
-        {/* Fix horizontal scroll */}
+      <div id="top-of-page" className="overflow-x-hidden">
         <ProductBanner />
         <WhatsAppButton />
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           variants={fadeInLeft}
         >
           <Hero />
@@ -107,7 +113,7 @@ const Home = () => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           variants={fadeInRight}
         >
           <InteractiveScrollingBox />
@@ -115,7 +121,7 @@ const Home = () => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           variants={fadeInLeft}
         >
           <LatestCollection />
@@ -123,7 +129,7 @@ const Home = () => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           variants={fadeInRight}
         >
           <BestSeller />
@@ -131,7 +137,7 @@ const Home = () => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           variants={fadeInLeft}
         >
           <OurPolicy />
@@ -139,7 +145,7 @@ const Home = () => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           variants={fadeInRight}
         >
           <FrequentyAskedQuestions />
@@ -148,7 +154,7 @@ const Home = () => {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             variants={fadeInLeft}
           >
             <NewsletterBox />
