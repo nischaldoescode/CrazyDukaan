@@ -37,7 +37,7 @@ const Navbar = () => {
   }, [visible]);
 
   return (
-    <div className="flex items-center justify-between py-6 px-10 font-medium shadow-lg mb-3">
+    <div className="flex items-center justify-between py-6 px-11 font-medium shadow-lg mb-3">
       <Link to="/">
 
         <motion.img
