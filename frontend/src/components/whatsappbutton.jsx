@@ -15,7 +15,7 @@ const WhatsAppButton = ({ productUrl }) => {
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
   return (
-    <button className="flex bg-black text-white px-3 py-3 justify-center items-center gap-5 text-sm active:bg-gray-700 rounded-md hover:bg-black-400 hover:scale-105 transition ease-in-out duration-200 mt-5">
+   <button type="button" className="flex bg-black text-white px-3 py-3 justify-center items-center gap-5 text-sm active:bg-gray-700 rounded-md hover:bg-black-400 hover:scale-105 transition ease-in-out duration-200 mt-5">
       <a
         href={whatsappUrl}
         target="_blank"
