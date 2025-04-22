@@ -7,13 +7,14 @@ import { motion } from "framer-motion";
 
 const Orders = ({ token }) => {
   const [orders, setOrders] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const fetchAllOrders = async () => {
     if (!token) return null;
     try {
       const response = await axios.post(
         backendUrl + "/api/order/list",
-        {},
+        { searchQuery },
         { headers: { token } }
       );
       if (response.data.success) {
@@ -83,11 +84,59 @@ const Orders = ({ token }) => {
     );
   };
 
+  // Helper function to display payment details
+  const PaymentDetails = ({ order }) => {
+    if (order.paymentMethod === "COD") {
+      return (
+        <div className="space-y-1">
+          <p className="text-xs text-gray-600">
+            <span className="font-medium">Total Amount:</span> {currency}
+            {order.amount}
+          </p>
+          <p className="text-xs text-gray-600">
+            <span className="font-medium">Paid (Booking):</span> {currency}
+            {order.paidAmount || order.TotalFees || 0}
+          </p>
+          <p className="text-xs text-gray-600">
+            <span className="font-medium">Due on Delivery:</span> {currency}
+            {order.dueAmount || (order.amount - (order.paidAmount || order.TotalFees || 0))}
+          </p>
+        </div>
+      );
+    } else {
+      return (
+        <p className="text-xs text-gray-600">
+          <span className="font-medium">Full Payment:</span> {currency}
+          {order.amount}
+        </p>
+      );
+    }
+  };
+
   return (
     <div className="px-4 py-6 sm:px-6 lg:px-8">
       <h3 className="text-2xl font-bold text-gray-800 mb-6">
         Order Management
       </h3>
+
+      {/* Search Bar */}
+      <div className="mb-6">
+        <div className="relative flex items-center">
+          <input
+            type="text"
+            placeholder="Search by Order ID..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full p-3 pl-4 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+          <button
+            onClick={fetchAllOrders}
+            className="absolute right-3 px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors"
+          >
+            Search
+          </button>
+        </div>
+      </div>
 
       <div className="space-y-4">
         {/* Desktop Table Header */}
@@ -100,6 +149,12 @@ const Orders = ({ token }) => {
           <div className="col-span-2">Actions</div>
         </div>
 
+        {orders.length === 0 && (
+          <div className="text-center py-10">
+            <p className="text-gray-500">No orders found</p>
+          </div>
+        )}
+
         {orders.map((order, index) => (
           <motion.div
             key={order._id}
@@ -110,12 +165,15 @@ const Orders = ({ token }) => {
           >
             {/* Desktop View */}
             <div className="hidden lg:grid grid-cols-12 gap-4 p-4 items-start">
-              <div className="col-span-1 flex justify-center">
+              <div className="col-span-1 flex flex-col items-center">
                 <img
                   className="w-10 h-10 object-contain"
                   src={assets.parcel_icon}
                   alt="order"
                 />
+                <div className="mt-2 text-xs font-bold">
+                  #{order.orderId || order._id.slice(-6).toUpperCase()}
+                </div>
               </div>
 
               <div className="col-span-4">
@@ -214,11 +272,28 @@ const Orders = ({ token }) => {
                     <span className="text-gray-400 text-xs">No discount</span>
                   )}
                 </div>
+                {/* Refund Status */}
+                {order.refundStatus && order.refundStatus !== 'Not Applicable' && (
+                  <p className="text-sm mt-2">
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      order.refundStatus === 'Issued' 
+                        ? 'bg-green-100 text-green-800' 
+                        : 'bg-yellow-100 text-yellow-800'
+                    }`}>
+                      Refund: {order.refundStatus}
+                    </span>
+                  </p>
+                )}
               </div>
 
-              <div className="col-span-1 font-bold text-lg">
-                {currency}
-                {order.amount}
+              <div className="col-span-1">
+                <p className="font-bold text-lg mb-2">
+                  {currency}
+                  {order.amount}
+                </p>
+                {order.paymentMethod === "COD" && (
+                  <PaymentDetails order={order} />
+                )}
               </div>
 
               <div className="col-span-2">
@@ -226,13 +301,15 @@ const Orders = ({ token }) => {
                   className={`px-2 py-1 rounded-full text-xs font-medium ${
                     order.status === "Order Placed"
                       ? "bg-blue-100 text-blue-800"
-                      : order.status === "Packing"
+                      : order.status === "Processing"
                       ? "bg-purple-100 text-purple-800"
                       : order.status === "Shipped"
                       ? "bg-yellow-100 text-yellow-800"
-                      : order.status === "Out for delivery"
-                      ? "bg-orange-100 text-orange-800"
-                      : "bg-green-100 text-green-800"
+                      : order.status === "Delivered"
+                      ? "bg-green-100 text-green-800"
+                      : order.status === "Cancelled"
+                      ? "bg-red-100 text-red-800"
+                      : "bg-orange-100 text-orange-800"
                   }`}
                 >
                   {order.status}
@@ -241,7 +318,7 @@ const Orders = ({ token }) => {
 
               <div className="col-span-2">
                 <select
-                  onChange={(e) => statusHandler(order._id, e.target.value)}
+                  onChange={(e) => statusHandler(order.orderId || order._id, e.target.value)}
                   value={order.status}
                   className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
                 >
@@ -265,20 +342,22 @@ const Orders = ({ token }) => {
                     alt="order"
                   />
                   <span className="font-bold">
-                    #{order._id.slice(-6).toUpperCase()}
+                    #{order.orderId || order._id.slice(-6).toUpperCase()}
                   </span>
                 </div>
                 <span
                   className={`px-2 py-1 rounded-full text-xs font-medium ${
                     order.status === "Order Placed"
                       ? "bg-blue-100 text-blue-800"
-                      : order.status === "Packing"
+                      : order.status === "Processing"
                       ? "bg-purple-100 text-purple-800"
                       : order.status === "Shipped"
                       ? "bg-yellow-100 text-yellow-800"
-                      : order.status === "Out for delivery"
-                      ? "bg-orange-100 text-orange-800"
-                      : "bg-green-100 text-green-800"
+                      : order.status === "Delivered"
+                      ? "bg-green-100 text-green-800"
+                      : order.status === "Cancelled"
+                      ? "bg-red-100 text-red-800"
+                      : "bg-orange-100 text-orange-800"
                   }`}
                 >
                   {order.status}
@@ -372,6 +451,18 @@ const Orders = ({ token }) => {
                     {currency}
                     {order.amount}
                   </p>
+                  
+                  {order.paymentMethod === "COD" && (
+                    <div className="space-y-1 mt-2">
+                      <p className="text-xs font-medium">
+                        Paid: {currency}{order.paidAmount || order.TotalFees || 0}
+                      </p>
+                      <p className="text-xs font-medium">
+                        Due: {currency}{order.dueAmount || (order.amount - (order.paidAmount || order.TotalFees || 0))}
+                      </p>
+                    </div>
+                  )}
+                  
                   <p className="text-xs text-gray-500">
                     {new Date(order.date).toLocaleString()}
                   </p>
@@ -402,8 +493,22 @@ const Orders = ({ token }) => {
                 </div>
               </div>
 
+              {/* Refund Status Mobile */}
+              {order.refundStatus && order.refundStatus !== 'Not Applicable' && (
+                <div className="mt-2">
+                  <h4 className="font-bold text-gray-800 text-sm">Refund Status</h4>
+                  <span className={`inline-block mt-1 px-2 py-1 rounded-full text-xs font-medium ${
+                    order.refundStatus === 'Issued' 
+                      ? 'bg-green-100 text-green-800' 
+                      : 'bg-yellow-100 text-yellow-800'
+                  }`}>
+                    {order.refundStatus}
+                  </span>
+                </div>
+              )}
+
               <select
-                onChange={(e) => statusHandler(order._id, e.target.value)}
+                onChange={(e) => statusHandler(order.orderId || order._id, e.target.value)}
                 value={order.status}
                 className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
               >
