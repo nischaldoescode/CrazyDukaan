@@ -5,65 +5,97 @@ import RelatedProducts from "../components/RelatedProducts";
 import { useNavigate } from "react-router-dom";
 import WhatsAppButton from "../components/whatsappbutton";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet"; // You'll need to install this
 
 const Product = () => {
-    const { productId } = useParams();
-    const navigate = useNavigate();
-    const { products, currency, addToCart } = useContext(ShopContext);
-    const [productData, setProductData] = useState(null);
-    const [mainImage, setMainImage] = useState("");
-    const [size, setSize] = useState("");
-    const [selectedColor, setSelectedColor] = useState("");
-    const [isHovered, setIsHovered] = useState(false);
-
-    useEffect(() => {
-        const fetchProductData = () => {
-            const item = products.find((item) => item._id === productId);
-            if (item) {
-                setProductData(item);
-                setMainImage(item.image[0]);
-                if (item.colors && item.colors.length > 0) {
-                    setSelectedColor(item.colors[0]);
-                }
-            } else {
-                toast.error("Product not found");
-                navigate("/");
-            }
-        };
-
-        if (products.length > 0) {
-            fetchProductData();
+  const { productId } = useParams();
+  const navigate = useNavigate();
+  const { products, currency, addToCart } = useContext(ShopContext);
+  const [productData, setProductData] = useState(null);
+  const [mainImage, setMainImage] = useState("");
+  const [size, setSize] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
+  const [isHovered, setIsHovered] = useState(false);
+  
+  useEffect(() => {
+    const fetchProductData = () => {
+      const item = products.find((item) => item._id === productId);
+      if (item) {
+        setProductData(item);
+        setMainImage(item.image[0]);
+        if (item.colors && item.colors.length > 0) {
+          setSelectedColor(item.colors[0]);
         }
-    }, [productId, products, navigate]);
-
-    const handleColorSelect = (color) => {
-        setSelectedColor(color);
+        
+        // Update the document title
+        document.title = `${item.name} | Crazy Dukaan`;
+      } else {
+        toast.error("Product not found");
+        navigate("/");
+      }
     };
-
-    const handleAddToCart = () => {
-        if (!size && !(productData.sizes?.[0] === "one-size")) {
-            toast.error("Please select a size");
-            return;
-        }
-
-        if (!selectedColor) {
-            toast.error("Please select a color");
-            return;
-        }
-
-        addToCart(
-            productData._id,
-            size || productData.sizes[0],
-            selectedColor
-        );
-        navigate("/cart");
-    };
-
-    if (!productData) {
-        return <div className="opacity-0"></div>;
+    if (products.length > 0) {
+      fetchProductData();
     }
+  }, [productId, products, navigate]);
+  
+  const handleColorSelect = (color) => {
+    setSelectedColor(color);
+  };
+  
+  const handleAddToCart = () => {
+    if (!size && !(productData.sizes?.[0] === "one-size")) {
+      toast.error("Please select a size");
+      return;
+    }
+    if (!selectedColor) {
+      toast.error("Please select a color");
+      return;
+    }
+    addToCart(productData._id, size || productData.sizes[0], selectedColor);
+    navigate("/cart");
+  };
+  
+  if (!productData) {
+    return <div className="opacity-0"></div>;
+  }
+  
+  // Extract tags from description or use categories
+  const productTags = productData.category ? [productData.category] : [];
 
     return (
+        <>
+      {/* SEO Meta Tags */}
+      <Helmet>
+        <title>{productData.name} | Crazy Dukaan</title>
+        <meta name="description" content={productData.description || `Buy ${productData.name} at Crazy Dukaan`} />
+        <meta name="keywords" content={[...productTags, "shop", "ecommerce", "fashion"].join(", ")} />
+        
+        {/* Open Graph meta tags for social sharing */}
+        <meta property="og:title" content={`${productData.name} | Crazy Dukaan`} />
+        <meta property="og:description" content={productData.description || `Buy ${productData.name} at Crazy Dukaan`} />
+        <meta property="og:image" content={productData.image[0]} />
+        <meta property="og:url" content={`https://crazydukaan.store/product/${productData._id}`} />
+        <meta property="og:type" content="product" />
+        <link rel="canonical" href={`https://crazydukaan.store/product/${productData._id}`} />
+        {/* Product schema markup for rich results */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": productData.name,
+            "description": productData.description,
+            "image": productData.image[0],
+            "offers": {
+              "@type": "Offer",
+              "price": productData.new_price,
+              "priceCurrency": currency || "INR",
+              "availability": "https://schema.org/InStock",
+              "url": `https://crazydukaan.store/product/${productData._id}`
+            }
+          })}
+        </script>
+      </Helmet>
         <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Product Data */}
             <div className="flex gap-8 xl:gap-12 flex-col lg:flex-row">
@@ -285,6 +317,7 @@ const Product = () => {
                 subCategory={productData.subCategory}
             />
         </div>
+        </>
     );
 };
 
