@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+
 export const ShopContext = createContext();
 
 const ShopContextProvider = (props) => {
@@ -23,8 +24,10 @@ const ShopContextProvider = (props) => {
   const [platformFee, setPlatformFee] = useState(0);
 
   useEffect(() => {
+    // Always save cart to localStorage to ensure persistence after refresh
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
+
   const getProductsData = useCallback(async () => {
     try {
       const response = await axios.get(backendUrl + "/api/product/list");
@@ -83,9 +86,12 @@ const ShopContextProvider = (props) => {
             }
           }
 
+          // Update cartItems state with normalized data from server
           setCartItems((prevCart) => {
             // Merge server cart with local cart
             const mergedCart = { ...prevCart, ...normalizedCart };
+            // Save merged cart to localStorage for persistence
+            localStorage.setItem("cart", JSON.stringify(mergedCart));
             return mergedCart;
           });
         }
@@ -148,7 +154,10 @@ const ShopContextProvider = (props) => {
       };
     }
 
+    // Update local state first
     setCartItems(cartData);
+    // Save to localStorage for persistence
+    localStorage.setItem("cart", JSON.stringify(cartData));
 
     if (token) {
       try {
@@ -187,7 +196,10 @@ const ShopContextProvider = (props) => {
 
     delete cartData[itemId][oldVariantKey];
 
+    // Update local state
     setCartItems(cartData);
+    // Save to localStorage for persistence
+    localStorage.setItem("cart", JSON.stringify(cartData));
 
     if (token) {
       try {
@@ -229,13 +241,12 @@ const ShopContextProvider = (props) => {
 
   const updateQuantity = async (itemId, variantKey, quantity) => {
     let cartData = structuredClone(cartItems);
-    const [size, color] = variantKey.includes("-")
-      ? variantKey.split("-")
-      : [variantKey, ""];
+    const [size, color] = variantKey.includes("-") ? variantKey.split("-") : [variantKey, ""];
 
     if (cartData[itemId]?.[variantKey]) {
       const parsedQuantity = parseInt(quantity);
       if (parsedQuantity <= 0) {
+        // Remove item completely if quantity is 0 or negative
         delete cartData[itemId][variantKey];
         if (Object.keys(cartData[itemId]).length === 0) {
           delete cartData[itemId];
@@ -245,7 +256,10 @@ const ShopContextProvider = (props) => {
       }
     }
 
+    // Update local state first
     setCartItems(cartData);
+    // Save to localStorage for persistence
+    localStorage.setItem("cart", JSON.stringify(cartData));
 
     if (token) {
       try {
@@ -267,9 +281,8 @@ const ShopContextProvider = (props) => {
         );
       } catch (error) {
         console.error("Error updating quantity:", error);
-        // Revert if error occurs
-        setCartItems(cartItems);
-        toast.error(error.response?.data?.message || "Failed to update cart");
+        // No revert here since we want local changes to persist regardless of API success
+        toast.error(error.response?.data?.message || "Failed to sync with server, but your cart is saved locally");
       }
     }
   };
@@ -284,8 +297,7 @@ const ShopContextProvider = (props) => {
             typeof cartItems[itemId][variantKey] === "object"
           ) {
             const item = cartItems[itemId][variantKey];
-            totalAmount +=
-              (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 0);
+            totalAmount += (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 0);
           }
         }
       }
@@ -310,7 +322,6 @@ const ShopContextProvider = (props) => {
     fetchFee();
   }, [backendUrl]);
 
-
   useEffect(() => {
     const fetchPlatformFee = async () => {
       try {
@@ -327,46 +338,48 @@ const ShopContextProvider = (props) => {
   }, [backendUrl]);
 
   const location = useLocation();
-  
+
   useEffect(() => {
     if (products.length === 0 || Object.keys(cartItems).length === 0) return;
-  
+
     const updatedCart = { ...cartItems };
     let deletedFound = false;
-  
+
     for (const productId in cartItems) {
       const product = products.find((p) => p._id === productId);
       const hasQty = Object.values(cartItems[productId]).some(
         (variant) => variant?.quantity > 0
       );
-  
+
       if (!product && hasQty) {
         deletedFound = true;
         delete updatedCart[productId];
       }
     }
-  
+
     if (deletedFound) {
       setCartItems(updatedCart);
-  
+      // Always save to localStorage for persistence
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+
       const userId = localStorage.getItem("userId");
-      if (userId) {
+      if (userId && token) {
         axios
           .post(`${backendUrl}/api/cart/clear-deleted`, {
             userId,
             updatedCart,
-          })
+          }, { headers: { token } })
           .catch((err) => console.error("Cart cleanup failed:", err));
       }
-  
+
       if (location.pathname === "/cart") {
         toast.error(
           "Some items were removed from your cart as they're no longer available."
         );
       }
     }
-  }, [cartItems, products, location.pathname]);
-  
+  }, [cartItems, products, location.pathname, backendUrl, token]);
+
   useEffect(() => {
     getProductsData();
   }, [getProductsData]);
