@@ -39,13 +39,14 @@ const Home = () => {
         <title>Crazy Dukaan | Dukaan in Your hand</title>
         <meta name="title" content="Crazy Dukaan | Dukaan in Your hand" />
         <meta name="google-site-verification" content="Ge6IsUiKWA-SWtWQqAiihdEp-oczhyGYhtwewuGIYX4" />
+         <link rel="canonical" href="https://crazydukaan.store/" />
         <meta
           name="description"
           content="Crazy Dukaan assists you with brand-new fashion outfit trends by offering you items, peddling your style, or selling a will-o'-the-wisp, as seen on other popular media channels."
         />
         <meta
           name="keywords"
-          content="Crazy Dukaan, eCommerce, outfits, fashion products, online store, accessories, trendy outfits, fashion retailer, online shopping, best deals"
+          content="Crazy Dukaan, eCommerce, outfits, fashion products, online store, accessories, trendy outfits, fashion retailer, online shopping, best deals, crazydukan store, crazydukan shop, crazudukan prdocuts"
         />
         <meta name="author" content="Crazy Dukaan" />
         <link rel="canonical" href="https://www.crazydukaan.store/" />
