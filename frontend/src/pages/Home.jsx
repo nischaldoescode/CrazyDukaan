@@ -46,7 +46,7 @@ const Home = () => {
         />
         <meta
           name="keywords"
-          content="Crazy Dukaan, eCommerce, outfits, fashion products, online store, accessories, trendy outfits, fashion retailer, online shopping, best deals, crazydukan store, crazydukan shop, crazudukan prdocuts"
+          content="Crazy Dukaan, eCommerce, outfits, fashion products, online store, accessories, trendy outfits, fashion retailer, online shopping, best deals, crazydukan store, crazy dukan store, crazydukan store, crazydukan shop, crazydukan prdocuts, crazydukan"
         />
         <meta name="author" content="Crazy Dukaan" />
         <link rel="canonical" href="https://www.crazydukaan.store/" />
