@@ -182,6 +182,42 @@ const ShopContextProvider = (props) => {
     }
   };
 
+  const removeCartItem = async (itemId, variantKey) => {
+    try {
+      // Create a deep copy of the cart state
+      let cartData = structuredClone(cartItems);
+      
+      // Remove the variant from local state
+      if (cartData[itemId] && cartData[itemId][variantKey]) {
+        delete cartData[itemId][variantKey];
+        
+        // If no variants left for this product, remove the product entry
+        if (Object.keys(cartData[itemId]).length === 0) {
+          delete cartData[itemId];
+        }
+      }
+      
+      // Update local state first
+      setCartItems(cartData);
+      
+      // Save to localStorage for persistence
+      localStorage.setItem("cart", JSON.stringify(cartData));
+      
+      // If user is logged in, sync with server
+      if (token) {
+        await axios.post(
+          backendUrl + "/api/cart/remove-item",
+          { itemId, variantKey },
+          { headers: { token } }
+        );
+      }
+      
+    } catch (error) {
+      console.error("Error removing item from cart:", error);
+      toast.error(error.response?.data?.message || "Failed to remove item");
+    }
+  };
+
   const updateCartItemColor = async (itemId, oldVariantKey, newColor) => {
     const [size, _] = oldVariantKey.split("-");
     const product = products.find((p) => p._id === itemId);
@@ -243,17 +279,15 @@ const ShopContextProvider = (props) => {
     let cartData = structuredClone(cartItems);
     const [size, color] = variantKey.includes("-") ? variantKey.split("-") : [variantKey, ""];
 
+    const parsedQuantity = parseInt(quantity);
+    
+    if (parsedQuantity <= 0) {
+      // Use the new removeCartItem function for quantity=0 cases
+      return removeCartItem(itemId, variantKey);
+    }
+    
     if (cartData[itemId]?.[variantKey]) {
-      const parsedQuantity = parseInt(quantity);
-      if (parsedQuantity <= 0) {
-        // Remove item completely if quantity is 0 or negative
-        delete cartData[itemId][variantKey];
-        if (Object.keys(cartData[itemId]).length === 0) {
-          delete cartData[itemId];
-        }
-      } else {
-        cartData[itemId][variantKey].quantity = parsedQuantity;
-      }
+      cartData[itemId][variantKey].quantity = parsedQuantity;
     }
 
     // Update local state first
@@ -269,11 +303,10 @@ const ShopContextProvider = (props) => {
         await axios.post(
           backendUrl + "/api/cart/update",
           {
-            userId: localStorage.getItem("userId"),
             itemId,
             size,
             color: color || cartData[itemId]?.[variantKey]?.color || "#000000",
-            quantity: parseInt(quantity),
+            quantity: parsedQuantity,
             category,
             subCategory
           },
@@ -424,6 +457,7 @@ const ShopContextProvider = (props) => {
     backendUrl,
     setToken,
     token,
+    removeCartItem, // Add this new function to the context value
   };
 
   return (
