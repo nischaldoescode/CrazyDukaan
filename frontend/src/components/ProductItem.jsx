@@ -39,7 +39,6 @@ const ProductItem = ({ id, image, name, price, className, originalPrice }) => {
       transition={{ duration: 0.5, ease: "easeOut" }}
       to={`/product/${id}`}
       onClick={handleProductClick}
-      
     >
       <div className="relative h-full flex flex-col group w-full">
         {/* Image container with improved blending */}
@@ -89,7 +88,6 @@ const ProductItem = ({ id, image, name, price, className, originalPrice }) => {
                   {originalPrice}
                 </p>
               </div>
-
               {productColors.length > 0 && (
                 <motion.div
                   className="flex items-center gap-1"
@@ -101,17 +99,19 @@ const ProductItem = ({ id, image, name, price, className, originalPrice }) => {
                   {productColors.slice(0, 4).map((color, index) => (
                     <motion.div
                       key={index}
-                      className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full border border-white shadow-sm relative
-              ${index === 0 ? "ring-1 ring-orange-500" : "border border-black"}`}
+                      className="w-5 h-5 sm:w-6 sm:h-6 rounded-full shadow-sm relative"
                       style={{
                         backgroundColor: color,
                         zIndex: 4 - index,
+                        boxShadow: "0 0 0 1px rgba(0,0,0,0.1), 0 0 0 2px white",
+                        marginLeft: index > 0 ? "-6px" : "0",
                       }}
                       title={color}
                       whileHover={{
                         scale: 1.3,
                         zIndex: 10,
                         boxShadow: "0 0 0 1px white, 0 0 0 2px #f97316",
+                        marginLeft: "0",
                       }}
                       transition={{
                         type: "spring",
@@ -121,7 +121,10 @@ const ProductItem = ({ id, image, name, price, className, originalPrice }) => {
                     />
                   ))}
                   {productColors.length > 4 && (
-                    <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-gray-100 border border-white flex items-center justify-center text-[0.6rem] font-medium text-gray-600 shadow-sm">
+                    <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-gray-100 flex items-center justify-center text-xs font-medium text-gray-600 shadow-sm" style={{
+                      boxShadow: "0 0 0 1px rgba(0,0,0,0.1), 0 0 0 2px white",
+                      marginLeft: "-6px",
+                    }}>
                       +{productColors.length - 4}
                     </div>
                   )}
