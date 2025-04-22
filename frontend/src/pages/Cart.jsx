@@ -6,7 +6,6 @@ import { assets } from "../assets/assets";
 import CartTotal from "../components/CartTotal";
 import { toast } from "react-toastify";
 import "./Cart.css";
-import axios from "axios";
 
 const Cart = () => {
   const {
@@ -14,42 +13,43 @@ const Cart = () => {
     currency,
     cartItems,
     updateQuantity,
+    removeCartItem, // Add this import from context
     setCartItems,
     backendUrl,
+    token,
   } = useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
   const location = useLocation();
   const hasShownDeletedToast = useRef(0);
-  const { token,} = useContext(ShopContext);
   const navigate = useNavigate();
-  
-useEffect(() => {
-  const tempData = [];
-  for (const productId in cartItems) {
-    const product = products.find((p) => p._id === productId);
-    if (!product) continue;
 
-    for (const variantKey in cartItems[productId]) {
-      const variant = cartItems[productId][variantKey];
-      if (variant?.quantity > 0) {
-        tempData.push({
-          _id: productId,
-          size: variant.size,
-          color: variant.color,
-          quantity: variant.quantity,
-        });
+  useEffect(() => {
+    const tempData = [];
+    for (const productId in cartItems) {
+      const product = products.find((p) => p._id === productId);
+      if (!product) continue;
+
+      for (const variantKey in cartItems[productId]) {
+        const variant = cartItems[productId][variantKey];
+        if (variant?.quantity > 0) {
+          tempData.push({
+            _id: productId,
+            size: variant.size,
+            color: variant.color,
+            quantity: variant.quantity,
+          });
+        }
       }
     }
-  }
 
-  setCartData(tempData);
-}, [cartItems, products]);
-
+    setCartData(tempData);
+  }, [cartItems, products]);
 
   const handleProceedToCheckout = () => {
     // Check if the user is logged in
     if (!token) {
-      toast.error("Please login to place an order");  // Show error toast if not logged in
+      toast.error("Please login to place an order"); // Show error toast if not logged in
+      navigate("/login", { state: { from: location.pathname } });
     } else {
       // Flatten cartItems and map over the variants for each product
       const formattedCartItems = Object.keys(cartItems).flatMap((productId) => {
@@ -61,14 +61,23 @@ useEffect(() => {
           quantity: productVariants[variantKey].quantity,
         }));
       });
-  
+
       // Navigate to place order with the formatted cart items
       navigate("/place-order", {
         state: { cartItems: formattedCartItems },
       });
     }
   };
-  
+
+  const handleRemoveItem = async (itemId, variantKey) => {
+    try {
+      // Use the dedicated removeCartItem function instead of updateQuantity
+      await removeCartItem(itemId, variantKey);
+      // Toast is now handled inside removeCartItem function
+    } catch (error) {
+      toast.error("Failed to remove item");
+    }
+  };
 
   const renderCartItems = () => {
     return cartData.map((item, index) => {
@@ -82,7 +91,11 @@ useEffect(() => {
           className="py-4 border-t border-b text-gray-700 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4"
         >
           <div className="flex items-start gap-6">
-            <img className="w-16 sm:w-20" src={productData.image[0].url} alt="" />
+            <img
+              className="w-16 sm:w-20"
+              src={productData.image[0].url}
+              alt=""
+            />
             <div>
               <p className="text-xs sm:text-lg font-medium">
                 {productData.name}
@@ -112,7 +125,7 @@ useEffect(() => {
                   </div>
                 )}
               </div>
-            <div className="mt-2">
+              <div className="mt-2">
                 <span className="text-sm font-medium text-gray-500">
                   Category:{" "}
                 </span>
@@ -166,14 +179,7 @@ useEffect(() => {
           </div>
 
           <img
-            onClick={async () => {
-              try {
-                await updateQuantity(item._id, `${item.size}-${item.color}`, 0);
-                // Success - item will be removed from UI via state update
-              } catch (error) {
-                toast.error("Failed to remove item");
-              }
-            }}
+            onClick={() => handleRemoveItem(item._id, `${item.size}-${item.color}`)}
             className="w-5 mr-4 sm:w-6 cursor-pointer hover:opacity-70 transition-opacity"
             src={assets.bin_icon}
             alt="Remove item"
