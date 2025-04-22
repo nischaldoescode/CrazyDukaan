@@ -27,7 +27,7 @@ const ProductItem = ({ id, image, name, price, className, originalPrice }) => {
 
   return (
     <motion.div
-      className={`bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-orange-200 ${className}`}
+      className={`bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-orange-200 ${className} cursor-pointer`}
       whileHover={{
         y: -8,
         boxShadow:
@@ -37,6 +37,9 @@ const ProductItem = ({ id, image, name, price, className, originalPrice }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
+      to={`/product/${id}`}
+      onClick={handleProductClick}
+      
     >
       <div className="relative h-full flex flex-col group w-full">
         {/* Image container with improved blending */}
