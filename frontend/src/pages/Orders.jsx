@@ -3,13 +3,13 @@ import { ShopContext } from '../context/ShopContext'
 import Title from '../components/Title';
 import axios from 'axios';
 import { FiRefreshCw, FiPackage, FiClock, FiCheckCircle, FiTruck } from 'react-icons/fi';
-import { Helmet } from "react-helmet";
 
 const Orders = () => {
   const { backendUrl, token, currency } = useContext(ShopContext);
-  const [orderData, setOrderData] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  
   useEffect(() => {
     if (token) {
       loadOrderData();
@@ -19,6 +19,7 @@ const Orders = () => {
   const getStatusColor = (status) => {
     switch (status.toLowerCase()) {
       case 'pending':
+      case 'order placed':
         return 'bg-yellow-500';
       case 'processing':
         return 'bg-blue-500';
@@ -36,6 +37,7 @@ const Orders = () => {
   const getStatusIcon = (status) => {
     switch (status.toLowerCase()) {
       case 'pending':
+      case 'order placed':
         return <FiClock className="mr-1" />;
       case 'processing':
         return <FiPackage className="mr-1" />;
@@ -50,7 +52,6 @@ const Orders = () => {
 
   const loadOrderData = async (isRefresh = false) => {
     try {
-      
       if (isRefresh) {
         setRefreshing(true);
       } else {
@@ -64,21 +65,7 @@ const Orders = () => {
       );
 
       if (response.data.success) {
-        let allOrdersItem = [];
-        response.data.orders.forEach((order) => {
-          order.items.forEach((item) => {
-            allOrdersItem.push({
-              ...item,
-              status: order.status,
-              payment: order.payment,
-              paymentMethod: order.paymentMethod,
-              date: order.date,
-              orderId: order._id, // Add order ID for reference
-              category: item.category
-            });
-          });
-        });
-        setOrderData(allOrdersItem.reverse());
+        setOrders(response.data.orders.reverse());
       }
     } catch (error) {
       console.error("Error loading orders:", error);
@@ -88,49 +75,7 @@ const Orders = () => {
     }
   };
 
-
   if (!token) {
-    <Helmet>
-    <title>Your Orders | Crazy Dukaan</title>
-    <meta name="google-site-verification" content="Ge6IsUiKWA-SWtWQqAiihdEp-oczhyGYhtwewuGIYX4" />
-    <meta name="description" content="View your order history and track recent purchases from Crazy Dukaan. Reliable fashion shopping with quick delivery and detailed tracking." />
-    <meta name="keywords" content="Crazy Dukaan orders, order history, fashion delivery, online purchases, track orders, Crazy Dukaan tracking, view my orders" />
-    <meta name="author" content="Crazy Dukaan" />
-    <meta name="robots" content="noindex, nofollow" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="theme-color" content="#ffffff" />
-
-    {/* Open Graph */}
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Your Orders | Crazy Dukaan" />
-    <meta property="og:description" content="Access your order history and track your fashion purchases with Crazy Dukaan." />
-    <meta property="og:url" content="https://www.crazydukaan.store/orders" />
-    <meta property="og:image" content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1744911085/zipkainysdn8qhlp0dix.png" />
-    <meta property="og:site_name" content="Crazy Dukaan" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:type" content="image/png" />
-
-    {/* Twitter */}
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Your Orders | Crazy Dukaan" />
-    <meta name="twitter:description" content="View and track your past purchases on Crazy Dukaan." />
-    <meta name="twitter:image" content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1744911085/zipkainysdn8qhlp0dix.png" />
-
-    {/* Instagram (only basic impact via OG) */}
-    <meta property="og:site" content="https://www.instagram.com/crazydukaan/" />
-          <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XEBXHJCN7"></script>
-        <script>
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-6XEBXHJCN7');
-          `}
-        </script>
-  </Helmet>
     return (
       <div className="border-t pt-16 min-h-[60vh] flex flex-col items-center justify-center text-center px-4">
         <Title text1="MY" text2="ORDERS" />
@@ -147,75 +92,10 @@ const Orders = () => {
 
   if (loading) {
     return (
-      <>
-      <Helmet>
-      <title>Your Orders | Crazy Dukaan - Dukaan In Your Hand</title>
-      <meta name="description" content="View your All your order history and track recent purchases from Crazy Dukaan." />
-      <meta name="keywords" content="Crazy Dukaan orders, order history, fashion delivery, online purchases, track orders, Crazy Dukaan tracking, view my orders, crazy dukaan history, crazy dukaan purchase" />
-      <meta name="author" content="Crazy Dukaan" />
-      <meta name="robots" content="noindex, nofollow" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-      <meta name="theme-color" content="#ffffff" />
-
-      {/* Open Graph */}
-      <meta property="og:type" content="website" />
-      <meta property="og:title" content="Your Orders | Crazy Dukaan - Dukaan In your hand" />
-      <meta property="og:description" content="View your All your order history and track recent purchases from Crazy Dukaan." />
-      <meta property="og:url" content="https://www.crazydukaan.store/orders" />
-      <meta property="og:image" content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1744911085/zipkainysdn8qhlp0dix.png" />
-      <meta property="og:site_name" content="Crazy Dukaan" />
-      <meta property="og:locale" content="en_US" />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:image:type" content="image/png" />
-
-      {/* Twitter */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="Your Orders | Crazy Dukaan - Dukaan in Your Hand" />
-      <meta name="twitter:description" content="View your All your order history and track recent purchases from Crazy Dukaan." />
-      <meta name="twitter:image" content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1744911085/zipkainysdn8qhlp0dix.png" />
-
-      {/* Instagram (only basic impact via OG) */}
-      <meta property="og:site" content="https://www.instagram.com/crazydukaan.store" />
-      <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-            <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XEBXHJCN7"></script>
-        <script>
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-6XEBXHJCN7');
-          `}
-        </script>
-    </Helmet>
       <div className="border-t pt-16 min-h-[60vh] flex flex-col items-center justify-center">
-        <div className="text-2xl mb-8">
-          <Title text1={'MY'} text2={'ORDERS'} />
-        </div>
-        <div className="flex flex-col items-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500 mb-4"></div>
-          <p className="text-gray-600">Loading your orders...</p>
-        </div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+        <p className="mt-4 text-gray-600">Loading your orders...</p>
       </div>
-      </>
     );
   }
 
@@ -227,7 +107,7 @@ const Orders = () => {
 
       <div className="mb-6 flex justify-between items-center">
         <h2 className="text-lg font-medium text-gray-900">
-          {orderData.length} {orderData.length === 1 ? 'Order' : 'Orders'}
+          {orders.length} {orders.length === 1 ? 'Order' : 'Orders'}
         </h2>
         <button 
           onClick={() => loadOrderData(true)}
@@ -239,7 +119,7 @@ const Orders = () => {
         </button>
       </div>
 
-      {orderData.length === 0 ? (
+      {orders.length === 0 ? (
         <div className="text-center py-16">
           <div className="mx-auto w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
             <FiPackage className="text-gray-400 text-3xl" />
@@ -257,76 +137,139 @@ const Orders = () => {
         </div>
       ) : (
         <div className="space-y-6">
-          {orderData.map((item, index) => (
+          {orders.map((order, orderIndex) => (
             <div 
-              key={index} 
+              key={orderIndex} 
               className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
             >
               <div className="p-4 sm:p-6 bg-white">
-                <div className="flex flex-col md:flex-row gap-6">
-                  {/* Product Image and Basic Info */}
-                  <div className="flex-1 flex gap-4 sm:gap-6">
-                    <div className="flex-shrink-0 w-20 h-27 sm:w-32 sm:h-32 rounded-md overflow-hidden border">
-                      <img 
-                        className="w-full h-full object-cover" 
-                        src={item.image.url} 
-                        alt={item.name} 
-                        loading="lazy"
-                      />
+                {/* Order Header */}
+                <div className="flex justify-between items-center mb-4 pb-3 border-b">
+                  <div>
+                    <span className="text-sm text-gray-500 mr-2">Order ID:</span>
+                    <span className="font-semibold">{order.orderId || order._id.slice(-6).toUpperCase()}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className={`flex items-center text-sm ${getStatusColor(order.status)} text-white px-3 py-1 rounded-full`}>
+                      {getStatusIcon(order.status)}
+                      <span className="capitalize">{order.status}</span>
                     </div>
                     
-                    <div className="flex-1">
-                      <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-1">
-                        {item.name}
-                      </h3>
-                      
-                      <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-gray-600 mb-2">
-                        <p>{currency}{item.price}</p>
-                        <p>Qty: {item.quantity}</p>
-                        <p>Size: {item.size}</p>
-                        <p>Category: {item.category}</p>
-                        {item.color && (
-                          <div className="flex items-center">
-                            <span className="mr-1">Color:</span>
-                            <span 
-                              className="w-4 h-4 rounded-full border border-gray-200 inline-block"
-                              style={{ backgroundColor: item.color }}
-                              title={item.color}
-                            ></span>
-                          </div>
-                        )}
+                    {order.refundStatus === 'Issued' && (
+                      <span className="ml-2 text-sm bg-green-100 text-green-800 px-3 py-1 rounded-full">
+                        Refund Issued
+                      </span>
+                    )}
+                  </div>
+                </div>
+                
+                {/* Order Items */}
+                <div className="mb-4">
+                  {order.items.map((item, itemIndex) => (
+                    <div key={itemIndex} className="flex gap-4 sm:gap-6 mb-4 pb-4 border-b last:border-b-0 last:mb-0 last:pb-0">
+                      <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-md overflow-hidden border">
+                        <img 
+                          className="w-full h-full object-cover" 
+                          src={item.image?.url} 
+                          alt={item.name} 
+                          loading="lazy"
+                        />
                       </div>
                       
-                      <div className="text-xs text-gray-500">
-                        <p>Ordered on: {new Date(item.date).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        })}</p>
-                        <p>Payment: {item.paymentMethod} • {item.payment ? 'Paid' : 'Pending'}</p>
+                      <div className="flex-1">
+                        <h3 className="text-base font-medium text-gray-900 mb-1">
+                          {item.name}
+                        </h3>
+                        
+                        <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-gray-600 mb-2">
+                          <p>{currency}{item.price}</p>
+                          <p>Qty: {item.quantity}</p>
+                          {item.size && <p>Size: {item.size}</p>}
+                          {item.category && <p>Category: {item.category}</p>}
+                          {item.color && (
+                            <div className="flex items-center">
+                              <span className="mr-1">Color:</span>
+                              <span 
+                                className="w-4 h-4 rounded-full border border-gray-200 inline-block"
+                                style={{ backgroundColor: item.color }}
+                                title={item.color}
+                              ></span>
+                            </div>
+                          )}
+                        </div>
                       </div>
+                      
+                      <div className="text-right">
+                        <p className="font-medium">{currency}{item.price * item.quantity}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Order Details */}
+                <div className="mt-6 grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <h4 className="text-sm font-medium text-gray-900 mb-2">Shipping Address</h4>
+                    <div className="text-sm text-gray-600">
+                      <p>{order.address.firstName} {order.address.lastName}</p>
+                      <p>{order.address.street}</p>
+                      <p>{order.address.city}, {order.address.state}, {order.address.zipcode}</p>
+                      <p>{order.address.country}</p>
+                      <p>Phone: {order.address.phone}</p>
                     </div>
                   </div>
                   
-                  {/* Status and Actions */}
-                  <div className="md:w-48 flex flex-col justify-between">
-                    <div className="flex items-center justify-between md:justify-end md:flex-col md:items-end gap-2">
-                      <div className={`flex items-center text-sm ${getStatusColor(item.status)} text-white px-3 py-1 rounded-full`}>
-                        {getStatusIcon(item.status)}
-                        <span className="capitalize">{item.status}</span>
-                      </div>
+                  <div>
+                    <h4 className="text-sm font-medium text-gray-900 mb-2">Order Information</h4>
+                    <div className="text-sm text-gray-600">
+                      <p>Date: {new Date(order.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}</p>
+                      <p>Payment Method: {order.paymentMethod}</p>
                       
-                      <button 
-                        className="text-sm font-medium text-orange-600 hover:text-orange-800 transition-colors"
-                        onClick={() => loadOrderData(true)}
-                      >
-                        Track Order
-                      </button>
+                      {order.couponCode && (
+                        <p>Coupon: {order.couponCode} {order.discount > 0 ? `(${order.discount}% off)` : ''}</p>
+                      )}
+                      
+                      {/* Payment Details */}
+                      <div className="mt-4 pt-3 border-t">
+                        <div className="flex justify-between mb-1">
+                          <span>Total Amount:</span>
+                          <span className="font-medium">{currency}{order.amount}</span>
+                        </div>
+                        
+                        {order.paymentMethod === "COD" ? (
+                          <>
+                            <div className="flex justify-between mb-1 text-sm">
+                              <span>Platform Fee:</span>
+                              <span>{currency}{order.platformFee || 0}</span>
+                            </div>
+                            <div className="flex justify-between mb-1 text-sm">
+                              <span>Shipping Fee:</span>
+                              <span>{currency}{order.shippingFee || 0}</span>
+                            </div>
+                            <div className="flex justify-between mb-1">
+                              <span>Paid Amount (Booking):</span>
+                              <span>{currency}{order.paidAmount || order.TotalFees || 0}</span>
+                            </div>
+                            <div className="flex justify-between font-semibold">
+                              <span>Due on Delivery:</span>
+                              <span>{currency}{order.dueAmount || (order.amount - (order.paidAmount || order.TotalFees || 0))}</span>
+                            </div>
+                          </>
+                        ) : (
+                          <div className="flex justify-between font-semibold">
+                            <span>Payment Status:</span>
+                            <span className="text-green-600">{order.payment ? "Paid" : "Pending"}</span>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            
             </div>
           ))}
         </div>
