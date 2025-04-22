@@ -35,6 +35,10 @@ app.use('/api/platform', platfromfeeroutes);
 app.use("/api/carousel", heroRoutes);
 app.use('/api/global-coupon', globalCouponRouter);
 
+app.use((req, res) => {
+  res.status(404).json({ message: "Oh ! you got lost, The Page you are looking for is Not found" });
+});
+
 app.get('/',(req,res)=>{
     res.send("API Working")
 })
