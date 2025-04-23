@@ -53,7 +53,7 @@ const Loader = () => {
                 }}
               >
                 <motion.img
-                  src="https://res.cloudinary.com/dgia0ww1z/image/upload/v1744911085/zipkainysdn8qhlp0dix.png"
+                  src="https://res.cloudinary.com/dgia0ww1z/image/upload/v1745403100/cmo495utoruwwaon5g1y.webp"
                   alt="Logo"
                   className="w-24 h-24 md:w-28 md:h-28"
                   initial={{ scale: 0, rotate: -180 }}
@@ -62,8 +62,8 @@ const Loader = () => {
                     rotate: 0
                   }}
                   transition={{
-                    duration: 1.5,
-                    ease: [0.16, 1, 0.3, 1],
+                    duration: 1.3,
+                    ease: [0.15, 1, 0.3, 1],
                   }}
                 />
               </motion.div>
@@ -111,7 +111,7 @@ const Loader = () => {
                         opacity: [0.6, 1, 0.6]
                       }}
                       transition={{
-                        duration: 1.8,
+                        duration: 1.5,
                         repeat: Infinity,
                         delay: i * 0.1,
                         ease: "easeInOut"
@@ -163,7 +163,7 @@ const Loader = () => {
                         stiffness: 100,
                         damping: 10,
                         delay: index * 0.2,
-                        duration: 0.8
+                        duration: 0.5
                       }}
                     >
                       {word}
