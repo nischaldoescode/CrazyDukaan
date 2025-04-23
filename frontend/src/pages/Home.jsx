@@ -64,7 +64,7 @@ const Home = () => {
         <meta property="og:url" content="https://www.crazydukaan.store/" />
         <meta
           property="og:image"
-          content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1744657344/pc6yvs6rzxgjc6dqnglg.png"
+          content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1745403100/cmo495utoruwwaon5g1y.webp"
         />
 
         {/* Instagram username for social preview */}
