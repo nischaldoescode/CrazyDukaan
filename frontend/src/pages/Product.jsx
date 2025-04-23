@@ -69,7 +69,7 @@ const Product = () => {
       <Helmet>
         <title>{productData.name} | Crazy Dukaan</title>
         <meta name="description" content={productData.description || `Buy ${productData.name} at Crazy Dukaan`} />
-        <meta name="keywords" content={[...productTags, "shop", "ecommerce", "fashion"].join(", ")} />
+        <meta name="keywords" content={[...productTags, "shop", "ecommerce", "fashion", "crazy dukan", "crazydukan products"].join(", ")} />
         
         {/* Open Graph meta tags for social sharing */}
         <meta property="og:title" content={`${productData.name} | Crazy Dukaan`} />
@@ -78,6 +78,10 @@ const Product = () => {
         <meta property="og:url" content={`https://crazydukaan.store/product/${productData._id}`} />
         <meta property="og:type" content="product" />
         <link rel="canonical" href={`https://crazydukaan.store/product/${productData._id}`} />
+        <meta
+          property="og:image"
+          content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1745403100/cmo495utoruwwaon5g1y.webp"
+        />
         {/* Product schema markup for rich results */}
         <script type="application/ld+json">
           {JSON.stringify({
