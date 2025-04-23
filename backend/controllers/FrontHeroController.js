@@ -39,7 +39,8 @@ const uploadCarouselImage = async (req, res) => {
     const result = await cloudinary.uploader.upload(req.file.path, {
       folder: "carousel",
       width: 1920,
-      crop: "scale"
+      crop: "scale",
+      fetch_format: "auto"
     });
 
     // Delete local file after upload
