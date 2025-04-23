@@ -44,7 +44,7 @@ const PrivacyPolicy = () => {
   <meta property="og:url" content="https://www.crazydukaan.store/termsandconditions" />
   <meta property="og:title" content="Terms and Conditions | Crazy Dukaan" />
   <meta property="og:description" content="Read the Terms and Conditions for using Crazy Dukaan — your trusted platform for fashion, accessories, and lifestyle products. Know your rights, policies, and user guidelines." />
-  <meta property="og:image" content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1744911085/zipkainysdn8qhlp0dix.png" />
+  <meta property="og:image" content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1745403100/cmo495utoruwwaon5g1y.webp" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:type" content="image/png" />
@@ -54,7 +54,7 @@ const PrivacyPolicy = () => {
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Terms and Conditions | Crazy Dukaan" />
   <meta name="twitter:description" content="Read the Terms and Conditions for using Crazy Dukaan — your trusted platform for fashion, accessories, and lifestyle products. Know your rights, policies, and user guidelines." />
-  <meta name="twitter:image" content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1744911085/zipkainysdn8qhlp0dix.png" />
+  <meta name="twitter:image" content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1745403100/cmo495utoruwwaon5g1y.webp" />
   <meta name="theme-color" content="#ffffff" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
