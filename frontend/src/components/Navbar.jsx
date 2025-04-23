@@ -41,7 +41,7 @@ const Navbar = () => {
       <Link to="/">
 
         <motion.img
-          src="https://res.cloudinary.com/dgia0ww1z/image/upload/v1744657344/pc6yvs6rzxgjc6dqnglg.png"
+          src="https://res.cloudinary.com/dgia0ww1z/image/upload/v1745403186/vxulbditfalnw6v0qlpf.webp"
           className="w-[10.7rem] sm:w-[11rem] md:[10rem] lg:w-[12rem]"
           whileHover={{
             rotateY: 360, // Rotates around the Y-axis (3D flip)
