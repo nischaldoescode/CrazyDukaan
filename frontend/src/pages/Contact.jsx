@@ -55,7 +55,7 @@ const Contact = () => {
         />
         <meta
           property="og:image"
-          content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1744911085/zipkainysdn8qhlp0dix.png"
+          content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1745403100/cmo495utoruwwaon5g1y.webp"
         />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
@@ -71,7 +71,7 @@ const Contact = () => {
         />
         <meta
           name="twitter:image"
-          content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1744911085/zipkainysdn8qhlp0dix.png"
+          content="https://res.cloudinary.com/dgia0ww1z/image/upload/v1745403100/cmo495utoruwwaon5g1y.webp"
         />
 
         {/* Theme & Favicon */}
