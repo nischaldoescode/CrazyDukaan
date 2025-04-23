@@ -20,7 +20,7 @@ const NotFoundPage = () => {
       </Helmet>
 
       <div className="min-h-screen flex flex-col items-center justify-center text-center bg-gray-100 p-9 mt-5">
-        <img src={assets.error_img} alt="Not Found" className="w-60% mb-6" />
+        <img src={assets.error_img} alt="Not Found" className="w-65% mb-6" />
         <h1 className="text-4xl font-bold mb-4 text-gray-800">
           Oops! Page not found
         </h1>
