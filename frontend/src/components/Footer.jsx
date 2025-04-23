@@ -11,7 +11,7 @@ const Footer = () => {
         <div className='flex flex-col overflow-hidden'>
             <a href="/" className='w-fit overflow-hidden'>
               <img 
-                src="https://res.cloudinary.com/dgia0ww1z/image/upload/v1744657344/pc6yvs6rzxgjc6dqnglg.png" 
+                src="https://res.cloudinary.com/dgia0ww1z/image/upload/v1745403186/vxulbditfalnw6v0qlpf.webp" 
                 className='mb-3 w-[12rem] max-w-full' 
                 alt="Logo" 
                 style={{
