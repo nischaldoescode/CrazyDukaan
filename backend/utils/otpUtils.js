@@ -30,7 +30,6 @@ export const sendOtpEmail = async (email, otp) => {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
-    replyTo: 'no-reply@crazydukaan.store',
     subject: 'Your OTP Code for CrazyDukaan',
     html: `<div style="max-width: 600px; margin: 0 auto; font-family: 'Arial', sans-serif;">
 <div style="text-align: center; margin-bottom: 20px;">
