@@ -38,6 +38,7 @@ const addProduct = async (req, res) => {
         let result = await cloudinary.uploader.upload(item.path, {
           resource_type: "image",
           folder: "products",
+          fetch_format: "auto"
         });
         return {
           url: result.secure_url,
