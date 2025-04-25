@@ -236,4 +236,21 @@ const deleteUser = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
-export { registerUser, loginUser, verifyOtp, adminLogin, getAllUsers, deleteUser };
+
+// ========== Frontend User's Name ==========
+const getUserProfile = async (req, res) => {
+  try {
+    const { userId } = req.body; // authUser middleware
+    
+    const user = await userModel.findById(userId, { name: 1, email: 1 });
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+    
+    res.json({ success: true, user });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+export { registerUser, loginUser, verifyOtp, adminLogin, getAllUsers, deleteUser, getUserProfile };
