@@ -77,7 +77,8 @@ const Contact = () => {
         {/* Theme & Favicon */}
         <meta name="theme-color" content="#ffffff" />
         <link rel="icon" href="/favicon.ico" />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XEBXHJCN7"></script>
+        <link rel="canonical" href="https://crazydukaan.store/" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XEBXHJCN7"></script>
         <script>
           {`
             window.dataLayer = window.dataLayer || [];
