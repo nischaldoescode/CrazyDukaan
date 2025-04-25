@@ -35,7 +35,7 @@ const fetchUserData = async () => {
         
         // Show welcome toast
         toast.success(`Welcome ${firstName},`, {
-          position: "top-",
+          position: "top-right",
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,
