@@ -274,7 +274,7 @@ const Collection = () => {
         {/* Basic Meta */}
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Crazy Dukaan | Dukaan in your hand</title>
+        <title>Crazy Dukaan | Explore Collection</title>
         <meta
           name="google-site-verification"
           content="Ge6IsUiKWA-SWtWQqAiihdEp-oczhyGYhtwewuGIYX4"
@@ -358,7 +358,8 @@ const Collection = () => {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XEBXHJCN7"></script>
+        <link rel="canonical" href="https://crazydukaan.store/collection" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XEBXHJCN7"></script>
         <script>
           {`
             window.dataLayer = window.dataLayer || [];
