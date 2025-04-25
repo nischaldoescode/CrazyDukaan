@@ -95,7 +95,7 @@ const About = () => {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
-        <link rel="canonical" href="https://crazydukaan.store/" />
+        <link rel="canonical" href="https://crazydukaan.store/about" />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XEBXHJCN7"></script>
         <script>
           {`
