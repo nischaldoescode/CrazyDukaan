@@ -3,18 +3,50 @@ import { ShopContext } from '../context/ShopContext'
 import Title from '../components/Title';
 import axios from 'axios';
 import { FiRefreshCw, FiPackage, FiClock, FiCheckCircle, FiTruck } from 'react-icons/fi';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Orders = () => {
   const { backendUrl, token, currency } = useContext(ShopContext);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [userName, setUserName] = useState('');
   
   useEffect(() => {
     if (token) {
       loadOrderData();
+      fetchUserData();
     }
   }, [token]);
+
+const fetchUserData = async () => {
+    try {
+      const response = await axios.post(
+        backendUrl + '/api/user/profile', 
+        {}, 
+        { headers: { token } }
+      );
+      
+      if (response.data.success && response.data.user) {
+        // Get first name from full name
+        const firstName = response.data.user.name.split(' ')[0];
+        setUserName(firstName);
+        
+        // Show welcome toast
+        toast.success(`Welcome ${firstName},`, {
+          position: "top-",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
   const getStatusColor = (status) => {
     switch (status.toLowerCase()) {
@@ -102,6 +134,7 @@ const Orders = () => {
   return (
     <div className="border-t pt-16 pb-12 min-h-[60vh] px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <div className="text-2xl mb-8">
+        <ToastContainer />
         <Title text1={'MY'} text2={'ORDERS'} />
       </div>
 
