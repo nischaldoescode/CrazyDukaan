@@ -72,7 +72,7 @@ const Hero = () => {
       <div className="relative w-full h-screen max-h-[100vh] bg-[#f8f8f8] flex items-center justify-center">
         <div className="flex flex-col items-center">
           <Loader2 className="animate-spin text-blue-500 mb-2" size={40} />
-          <p className="text-gray-600">Loading carousel...</p>
+          <p className="text-gray-600">Loading Images.....</p>
         </div>
       </div>
     );
