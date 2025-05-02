@@ -30,9 +30,6 @@ const RelatedProducts = ({category,subCategory}) => {
 
       <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6'>
         {related.map((item, index) => {
-                    // This is the correct way to add console.log in a map function
-                    console.log(`Original price for item ${index}:`, item.originalPrice);
-                    return (
                         <ProductItem 
                             key={index} 
                             id={item._id} 
@@ -41,7 +38,6 @@ const RelatedProducts = ({category,subCategory}) => {
                             image={item.image} 
                             originalPrice={item.originalPrice} 
                         />
-                    );
                 })}
       </div>
     </div>
