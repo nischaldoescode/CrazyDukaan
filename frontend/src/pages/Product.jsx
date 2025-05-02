@@ -319,7 +319,6 @@ const Product = () => {
             <RelatedProducts
                 category={productData.category}
                 subCategory={productData.subCategory}
-                originalPrice={{productData.originalPrice}
             />
         </div>
         </>
