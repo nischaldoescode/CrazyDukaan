@@ -33,7 +33,7 @@ export const sendOtpEmail = async (email, otp) => {
     subject: 'Your OTP Code for CrazyDukaan',
     html: `<div style="max-width: 600px; margin: 0 auto; font-family: 'Arial', sans-serif;">
 <div style="text-align: center; margin-bottom: 20px;">
-    <img src="https://res.cloudinary.com/dgia0ww1z/image/upload/v1744657344/pc6yvs6rzxgjc6dqnglg.png" 
+    <img src="https://res.cloudinary.com/dgia0ww1z/image/upload/v1745403186/vxulbditfalnw6v0qlpf.webp" 
          alt="CrazyDukaan Logo" 
          style="max-width: 180px; height: auto;">
 </div>
