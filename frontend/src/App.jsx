@@ -27,42 +27,34 @@ import NotFoundPage from "./pages/404";
 
 const App = () => {
   const location = useLocation();
-  const prevPath = useRef(location.pathname);
-  const [direction, setDirection] = useState("right");
 
   // Reset scroll position when route changes
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  useEffect(() => {
-    if (prevPath.current !== location.pathname) {
-      setDirection(prevPath.current < location.pathname ? "right" : "left");
-      prevPath.current = location.pathname;
-    }
-  }, [location]);
-
+  // Modern vertical slide-up animation - much faster and smoother
   const pageVariants = {
-    initial: (direction) => ({
-      x: direction === "right" ? "100%" : "-100%",
+    initial: {
+      y: 20,
       opacity: 0,
-    }),
+    },
     animate: {
-      x: 0,
+      y: 0,
       opacity: 1,
       transition: {
-        duration: 0.5, // Reduced from 0.8 to make transitions faster
-        ease: "easeInOut",
+        duration: 0.2, // Much faster - only 0.2 seconds
+        ease: [0.25, 0.46, 0.45, 0.94], // Custom easing for smooth feel
       },
     },
-    exit: (direction) => ({
-      x: direction === "right" ? "-100%" : "100%",
+    exit: {
+      y: -10,
       opacity: 0,
       transition: {
-        duration: 0.5, // Reduced from 0.8 to make transitions faster
-        ease: "easeInOut",
+        duration: 0.15, // Even faster exit
+        ease: [0.25, 0.46, 0.45, 0.94],
       },
-    }),
+    },
   };
 
   return (
@@ -91,7 +83,6 @@ const App = () => {
               path="/"
               element={
                 <motion.div
-                  custom={direction}
                   variants={pageVariants}
                   initial="initial"
                   animate="animate"
@@ -106,7 +97,6 @@ const App = () => {
               path="/collection"
               element={
                 <motion.div
-                  custom={direction}
                   variants={pageVariants}
                   initial="initial"
                   animate="animate"
@@ -121,7 +111,6 @@ const App = () => {
               path="/about"
               element={
                 <motion.div
-                  custom={direction}
                   variants={pageVariants}
                   initial="initial"
                   animate="animate"
@@ -136,7 +125,6 @@ const App = () => {
               path="/contact"
               element={
                 <motion.div
-                  custom={direction}
                   variants={pageVariants}
                   initial="initial"
                   animate="animate"
@@ -151,7 +139,6 @@ const App = () => {
               path="/product/:productId"
               element={
                 <motion.div
-                  custom={direction}
                   variants={pageVariants}
                   initial="initial"
                   animate="animate"
@@ -166,7 +153,6 @@ const App = () => {
               path="/cart"
               element={
                 <motion.div
-                  custom={direction}
                   variants={pageVariants}
                   initial="initial"
                   animate="animate"
@@ -181,7 +167,6 @@ const App = () => {
               path="/login"
               element={
                 <motion.div
-                  custom={direction}
                   variants={pageVariants}
                   initial="initial"
                   animate="animate"
@@ -196,7 +181,6 @@ const App = () => {
               path="/place-order"
               element={
                 <motion.div
-                  custom={direction}
                   variants={pageVariants}
                   initial="initial"
                   animate="animate"
@@ -211,7 +195,6 @@ const App = () => {
               path="/orders"
               element={
                 <motion.div
-                  custom={direction}
                   variants={pageVariants}
                   initial="initial"
                   animate="animate"
@@ -226,7 +209,6 @@ const App = () => {
               path="/termsconditions"
               element={
                 <motion.div
-                  custom={direction}
                   variants={pageVariants}
                   initial="initial"
                   animate="animate"
@@ -241,7 +223,6 @@ const App = () => {
               path="/frequentlyaskedquestions"
               element={
                 <motion.div
-                  custom={direction}
                   variants={pageVariants}
                   initial="initial"
                   animate="animate"
@@ -255,7 +236,6 @@ const App = () => {
               path="*"
               element={
                 <motion.div
-                  custom={direction}
                   variants={pageVariants}
                   initial="initial"
                   animate="animate"
