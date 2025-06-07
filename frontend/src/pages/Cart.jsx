@@ -172,53 +172,52 @@ const Cart = () => {
                 type="checkbox"
                 checked={isSelected}
                 onChange={() => toggleItemSelection(item._id, `${item.size}-${item.color}`)}
-                className="mt-2 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                className="mt-2 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 flex-shrink-0"
               />
               
               {/* Product Image */}
               <img
-                className="w-20 h-20 sm:w-24 sm:h-24 rounded-lg object-cover flex-shrink-0"
+                className="w-16 h-16 rounded-lg object-cover flex-shrink-0"
                 src={productData.image[0].url}
                 alt={productData.name}
               />
               
               {/* Product Details */}
               <div className="flex-1 min-w-0">
-                <h3 className="text-sm font-medium text-gray-900 truncate">
+                <h3 className="text-sm font-medium text-gray-900 mb-1 leading-tight">
                   {productData.name}
                 </h3>
                 
-                <div className="mt-1 space-y-1">
-                  <p className="text-lg font-semibold text-gray-900">
+                <div className="mb-2">
+                  <p className="text-base font-semibold text-gray-900">
                     {currency}{productData.price}
                   </p>
-                  
-                  <div className="flex flex-wrap gap-2">
-                    {item.size && (
-                      <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 border">
-                        Size: {item.size}
-                      </span>
-                    )}
-                    {item.color && (
-                      <div className="inline-flex items-center gap-1">
-                        <span className="text-xs text-gray-500">Color:</span>
-                        <div
-                          className="w-4 h-4 rounded-full border border-gray-300"
-                          style={{ backgroundColor: item.color }}
-                          title={item.color}
-                        />
-                      </div>
-                    )}
-                  </div>
-                  
                   <p className="text-xs text-gray-500">
-                    Category: <span className="text-gray-700">{productData.category}</span>
+                    {productData.category}
                   </p>
                 </div>
                 
-                {/* Quantity Controls */}
-                <div className="mt-3 flex items-center justify-between">
-                  <div className="flex items-center border border-gray-300 rounded-md">
+                {/* Size and Color */}
+                <div className="flex flex-wrap gap-1 mb-3">
+                  {item.size && (
+                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800 border">
+                      {item.size}
+                    </span>
+                  )}
+                  {item.color && (
+                    <div className="inline-flex items-center gap-1">
+                      <div
+                        className="w-3 h-3 rounded-full border border-gray-300"
+                        style={{ backgroundColor: item.color }}
+                        title={item.color}
+                      />
+                    </div>
+                  )}
+                </div>
+                
+                {/* Quantity Controls and Remove Button */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center border border-gray-300 rounded">
                     <button
                       onClick={() =>
                         item.quantity > 1
@@ -229,7 +228,7 @@ const Cart = () => {
                             )
                           : null
                       }
-                      className="px-3 py-1 hover:bg-gray-100 transition-colors text-gray-600"
+                      className="px-2 py-1 hover:bg-gray-100 transition-colors text-gray-600 text-sm"
                       disabled={item.quantity <= 1}
                     >
                       -
@@ -244,7 +243,7 @@ const Cart = () => {
                             : Number(e.target.value);
                         updateQuantity(item._id, `${item.size}-${item.color}`, value);
                       }}
-                      className="w-12 px-2 py-1 text-center border-0 focus:ring-0"
+                      className="w-8 px-1 py-1 text-center text-xs border-0 focus:ring-0"
                       min={1}
                     />
                     <button
@@ -255,7 +254,7 @@ const Cart = () => {
                           item.quantity + 1
                         )
                       }
-                      className="px-3 py-1 hover:bg-gray-100 transition-colors text-gray-600"
+                      className="px-2 py-1 hover:bg-gray-100 transition-colors text-gray-600 text-sm"
                     >
                       +
                     </button>
@@ -264,10 +263,10 @@ const Cart = () => {
                   {/* Remove Button */}
                   <button
                     onClick={() => confirmDelete(item._id, `${item.size}-${item.color}`, productData.name)}
-                    className="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-full transition-colors"
+                    className="p-1.5 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-full transition-colors"
                   >
                     <img
-                      className="w-5 h-5"
+                      className="w-4 h-4"
                       src={assets.bin_icon}
                       alt="Remove item"
                     />
@@ -473,7 +472,9 @@ const Cart = () => {
                   </div>
                 </div>
                 
-                <CartTotal />
+                <div className="mb-6">
+                  <CartTotal />
+                </div>
                 
                 <button
                   onClick={handleProceedToCheckout}
