@@ -88,7 +88,7 @@ const Cart = () => {
       return (
         <div
           key={index}
-          className="py-4 border-t border-b border-gray-360 text-gray-700 grid grid-cols-1 sm:grid-cols-[4fr_2fr_0.5fr] lg:grid-cols-[4fr_2fr_0.5fr] items-start sm:items-center gap-4"
+          className="py-4 border-t border-b border-gray-450 text-gray-700 grid grid-cols-1 sm:grid-cols-[4fr_2fr_0.5fr] lg:grid-cols-[4fr_2fr_0.5fr] items-start sm:items-center gap-4"
         >
           {/* Product Info Section */}
           <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
