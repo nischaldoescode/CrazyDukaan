@@ -110,7 +110,7 @@ const Cart = () => {
                 {/* Size and Color in same row on mobile, separate on desktop */}
                 <div className="flex flex-col sm:flex-col gap-2">
                   {item.size && (
-                    <p className="inline-block text-xs sm:text-sm font-medium px-2.5 py-0.5 rounded-md border border-gray-300 bg-gray-100 text-gray-600 w-fit mx-auto sm:mx-0">
+                    <p className="inline-block text-xs sm:text-sm font-medium px-2.5 py-0.5 rounded-md border border-gray-400 bg-gray-100 text-gray-600 w-fit mx-auto sm:mx-0">
                       Size:{" "}
                       <span className="font-semibold text-gray-800">
                         {item.size}
@@ -122,7 +122,7 @@ const Cart = () => {
                     <div className="flex items-center justify-center sm:justify-start">
                       <span className="text-xs text-gray-500 mr-2">Color:</span>
                       <div
-                        className="w-5 h-5 rounded-full border border-gray-200"
+                        className="w-5 h-5 rounded-full border border-gray-300"
                         style={{ backgroundColor: item.color }}
                         title={item.color}
                       />
