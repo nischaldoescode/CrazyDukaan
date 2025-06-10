@@ -515,7 +515,7 @@ const Login = () => {
               By clicking, you agree to our{" "}
               <span
                 className="text-blue-600 cursor-pointer font-medium"
-                onClick={() => go("/terms-condition")}
+                onClick={() => go("/termscondition")}
               >
                 Terms and Conditions
               </span>
